@@ -18,7 +18,7 @@
           "file": "flask_login"
         },
         {
-          "type": "user_stores",
+          "type": "user_stores_DISABLED",
           "id": "dummy_store",
           "file": "dummy_store"
         }
