@@ -26,7 +26,10 @@ class UserStore(object):
     return next((u for u in self._users if u.id == id), None)
 
   def load_from_key(self, api_key):
-    return next((u for u in self._users if u.id == api_key), None)
+    parts = api_key.split(':')
+    if len(parts) != 2:
+      return None
+    return next((u for u in self._users if u.id == parts[0] and u._password == parts[1]), None)
 
   def login(self, username, extra_fields = {}):
     return next((u for u in self._users if u.id == username and u._password == extra_fields['password']), None)
