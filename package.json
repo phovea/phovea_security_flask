@@ -1,0 +1,31 @@
+{
+  "name": "caleydo_security_flask",
+  "version": "0.0.1",
+  "license" : "SEE LICENSE IN LICENSE",
+  "repository": "Caleydo/caleydo_security_flask",
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "caleydo_server": "*"
+  },
+  "caleydo": {
+    "plugins": {
+      "python": [
+        {
+          "type": "manager",
+          "singleton": true,
+          "id": "security_manager",
+          "file": "flask_login"
+        }
+      ]
+    },
+    "dependencies": {
+      "python": {
+        "Flask-Login": ">=0.2.11"
+      }
+    }
+  },
+  "publishConfig": {
+    "registry": "http://dev.caleydo.org/nexus/content/repositories/caleydo-web/"
+  }
+}
