@@ -35,8 +35,8 @@ class FlaskLoginManager(security.SecurityManager):
   def __init__(self):
     super(FlaskLoginManager, self).__init__()
     self._manager = login.LoginManager()
-    self._manager.user_loader(self.load_user)
-    self._manager.request_loader(self.load_user_from_request)
+    self._manager.user_loader(self._load_user)
+    self._manager.request_loader(self._load_user_from_request)
     self._manager.login_view = None
 
     import caleydo_server.plugin as plugin
@@ -52,6 +52,8 @@ class FlaskLoginManager(security.SecurityManager):
 
   def init_app(self, app):
     self._manager.init_app(app)
+
+  def add_login_routes(self, app):
     import flask
 
     @app.route('/login', methods=['GET', 'POST'])
@@ -61,7 +63,8 @@ class FlaskLoginManager(security.SecurityManager):
         user_obj = self.login(user, flask.request.form)
         if not user_obj:
           return flask.abort(401)  # 401 Unauthorized
-        return user.name
+        print 'user login: '+user
+        return user
 
       #return a login mask
       login_mask = """
@@ -80,16 +83,19 @@ class FlaskLoginManager(security.SecurityManager):
 
     @app.route('/logout')
     def logout():
-      return self.logout()
+      self.logout()
+      return 'Bye Bye'
 
   def login_required(self, f):
     return self._manager.login_required(f)
 
+  @property
   def current_user(self):
-    return login.current_user()
+    return login.current_user
 
   def logout(self):
-    u = self.current_user()
+    u = self.current_user
+    print 'user logout: '+u.name
     for store in self._user_stores:
       store.logout(u)
     login.logout_user()
