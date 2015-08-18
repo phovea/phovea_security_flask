@@ -81,7 +81,7 @@ class FlaskLoginManager(security.SecurityManager):
       """
       return flask.render_template_string(login_mask)
 
-    @app.route('/logout')
+    @app.route('/logout', methods=['POST'])
     def logout():
       self.logout()
       return 'Bye Bye'
