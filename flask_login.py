@@ -59,12 +59,12 @@ class FlaskLoginManager(security.SecurityManager):
     @app.route('/login', methods=['GET', 'POST'])
     def login():
       if flask.request.method == 'POST':
-        user = flask.request.form['username']
-        user_obj = self.login(user, flask.request.form)
+        user = flask.request.values['username']
+        user_obj = self.login(user, flask.request.values)
         if not user_obj:
           return flask.abort(401)  # 401 Unauthorized
         print 'user login: '+user
-        return user
+        return flask.jsonify(name=user_obj.name,roles=user_obj.roles)
 
       #return a login mask
       login_mask = """
