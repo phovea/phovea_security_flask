@@ -41,6 +41,9 @@ class FlaskLoginManager(security.SecurityManager):
 
     import caleydo_server.plugin as plugin
     self._user_stores = [p.load().factory()  for p in plugin.list('user_stores')]
+    if len(self._user_stores) == 0:
+      import dummy_store
+      self._user_stores.append(dummy_store.create())
 
   def _load_user(self, id):
     for store in self._user_stores:
