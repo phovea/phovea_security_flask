@@ -77,6 +77,7 @@ class FlaskLoginManager(security.SecurityManager):
         <form name="login" action="/login" method="post" accept-charset="utf-8">
           <div><label for="username">User name: </label><input type="text" name="username" placeholder="name" required="required"></div>
           <div><label for="password">Password</label><input type="password" name="password" placeholder="password" required="required"></div>
+          <div><label for="remember"><input type="checkbox" name="remember" value="True" required="required"></label></div>
           <div><input type="reset" value="Reset"><input type="submit" value="Login"></div>
         </form>
       </body>
@@ -87,7 +88,15 @@ class FlaskLoginManager(security.SecurityManager):
     @app.route('/logout', methods=['POST'])
     def logout():
       self.logout()
-      return 'Bye Bye'
+      return flask.jsonify(msg='Bye Bye')
+
+    @app.route('/loggedinas')
+    def loggedinas():
+      user_obj = self.current_user
+      if user_obj.is_authenticated():
+        print 'user login: '+user_obj.name
+        return flask.jsonify(name=user_obj.name,roles=user_obj.roles)
+      flask.abort(404)
 
   def login_required(self, f):
     return self._manager.login_required(f)
@@ -107,7 +116,7 @@ class FlaskLoginManager(security.SecurityManager):
     for store in self._user_stores:
       u = store.login(username, extra_fields)
       if u:
-        login.login_user(u)
+        login.login_user(u, remember=bool(extra_fields.get('remember',False)))
         return u
     return None
 

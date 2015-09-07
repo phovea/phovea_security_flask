@@ -4,10 +4,11 @@
 import ajax = require('../caleydo_core/ajax');
 import session = require('../caleydo_core/session');
 
-export function login(username:string, password:string) {
+export function login(username:string, password:string, remember = false) {
   return ajax.send('/login', {
     username: username,
-    password: password
+    password: password,
+    remember: remember
   }, 'post').then(function (user) {
     session.store('user', user.name);
     session.store('user_obj', user);
@@ -27,10 +28,17 @@ export function logout() {
 }
 
 export function bindLoginForm(form: HTMLFormElement, callback: (error, user) => any) {
+  ajax.getJSON('/loggedinas')
+    .then((user) => callback(null, user))
+    .catch((error) => {
+      //ignore not yet logged in
+    });
   form.onsubmit = (event) => {
-    const username = form.item('login_username').value;
-    const password = form.item('login_password').value;
-    login(username, password)
+
+    const username = (<any>form).login_username.value;
+    const password = (<any>form).login_password.value;
+    const rememberMe = (<any>form).login_remember.checked;
+    login(username, password, rememberMe)
       .then((user) => callback(null, user))
       .catch((error) => callback(error, null));
     event.stopPropagation();
