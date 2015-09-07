@@ -28,8 +28,8 @@ export function logout() {
 
 export function bindLoginForm(form: HTMLFormElement, callback: (error, user) => any) {
   form.onsubmit = (event) => {
-    const username = form['login_username'].value;
-    const password = form['login_password'].value;
+    const username = form.item('login_username').value;
+    const password = form.item('login_password').value;
     login(username, password)
       .then((user) => callback(null, user))
       .catch((error) => callback(error, null));
