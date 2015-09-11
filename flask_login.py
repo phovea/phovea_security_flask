@@ -96,7 +96,7 @@ class FlaskLoginManager(security.SecurityManager):
       if user_obj.is_authenticated():
         print 'user login: '+user_obj.name
         return flask.jsonify(name=user_obj.name,roles=user_obj.roles)
-      flask.abort(404)
+      flask.abort(401)
 
   def login_required(self, f):
     return self._manager.login_required(f)
@@ -113,10 +113,12 @@ class FlaskLoginManager(security.SecurityManager):
     login.logout_user()
 
   def login(self, username, extra_fields = {}):
+    def str2bool(v):
+      return v if isinstance(v, bool) else v.lower() in ('yes', 'true', 't', '1')
     for store in self._user_stores:
       u = store.login(username, extra_fields)
       if u:
-        login.login_user(u, remember=bool(extra_fields.get('remember',False)))
+        login.login_user(u, remember=str2bool(extra_fields.get('remember',False)))
         return u
     return None
 
