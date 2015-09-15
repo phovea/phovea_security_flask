@@ -1,5 +1,19 @@
 {
-  "databases": [
-
+  "users": [
+    {
+      "name": "admin",
+      "password": "admin",
+      "roles": [
+        "admin"
+      ]
+    },
+    {
+      "name": "sam",
+      "password": "secret",
+      "roles": [
+        "sam",
+        "admin"
+      ]
+    }
   ]
 }

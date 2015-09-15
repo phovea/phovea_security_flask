@@ -17,10 +17,10 @@ class User(caleydo_security_flask.flask_login.User):
 
 class UserStore(object):
   def __init__(self):
-    self._users = [
-      User('admin', 'admin', ['admin']),
-      User('sam', 'secret', ['admin']),
-    ]
+    import caleydo_server.config
+
+    self._users = [User(v['name'], v['password'], v['roles']) for v in
+                   caleydo_server.config.get('caleydo_security_flask.users')]
 
   def load(self, id):
     return next((u for u in self._users if u.id == id), None)
