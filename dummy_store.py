@@ -15,9 +15,11 @@ class User(caleydo_security_flask.flask_login.User):
     self._salt = salt
     self.roles = roles
 
+  @property
   def is_authenticated(self):
     return True
 
+  @property
   def is_active(self):
     return True
 
