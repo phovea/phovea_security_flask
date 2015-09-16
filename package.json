@@ -21,7 +21,7 @@
     },
     "dependencies": {
       "python": {
-        "Flask-Login": ">=0.2.11"
+        "Flask-Login": "==0.3.0"
       }
     }
   },
