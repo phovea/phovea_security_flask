@@ -92,8 +92,8 @@ class FlaskLoginManager(security.SecurityManager):
 
     @app.route('/loggedinas')
     def loggedinas():
-      user_obj = self.current_user
-      if user_obj.is_authenticated():
+      if self.is_authenticated():
+        user_obj = self.current_user
         print 'user login: '+user_obj.name
         return flask.jsonify(name=user_obj.name,roles=user_obj.roles)
       flask.abort(401)
