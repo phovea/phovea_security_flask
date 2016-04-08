@@ -111,7 +111,7 @@ class FlaskLoginManager(security.SecurityManager):
 
   def logout(self):
     u = self.current_user
-    _log.debug('user logout: '+(u.name if hasattr(u.name) else str(u)))
+    _log.debug('user logout: '+(u.name if hasattr(u,'name') else str(u)))
     for store in self._user_stores:
       store.logout(u)
     login.logout_user()
