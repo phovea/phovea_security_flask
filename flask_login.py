@@ -4,6 +4,9 @@ import caleydo_server.security as security
 
 import flask.ext.login as login
 
+import logging
+_log = logging.getLogger('caleydo_security_flask.' + __name__)
+
 class User(security.User, login.UserMixin):
   def __init__(self, id):
     self.id = id
@@ -42,6 +45,7 @@ class FlaskLoginManager(security.SecurityManager):
     import caleydo_server.plugin as plugin
     self._user_stores = [p.load().factory()  for p in plugin.list('user_stores')]
     if len(self._user_stores) == 0:
+      _log.info('using dummy store')
       import dummy_store
       self._user_stores.append(dummy_store.create())
 
@@ -66,7 +70,7 @@ class FlaskLoginManager(security.SecurityManager):
         user_obj = self.login(user, flask.request.values)
         if not user_obj:
           return flask.abort(401)  # 401 Unauthorized
-        print 'user login: '+user
+        _log.debug('user login: '+user)
         return flask.jsonify(name=user_obj.name,roles=user_obj.roles)
 
       #return a login mask
@@ -94,7 +98,7 @@ class FlaskLoginManager(security.SecurityManager):
     def loggedinas():
       if self.is_authenticated():
         user_obj = self.current_user
-        print 'user login: '+user_obj.name
+        _log.debug('user login: '+user_obj.name)
         return flask.jsonify(name=user_obj.name,roles=user_obj.roles)
       flask.abort(401)
 
@@ -107,7 +111,7 @@ class FlaskLoginManager(security.SecurityManager):
 
   def logout(self):
     u = self.current_user
-    print 'user logout: '+(u.name if hasattr(u.name) else str(u))
+    _log.debug('user logout: '+(u.name if hasattr(u.name) else str(u)))
     for store in self._user_stores:
       store.logout(u)
     login.logout_user()
