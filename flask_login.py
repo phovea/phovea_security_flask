@@ -5,7 +5,7 @@ import caleydo_server.security as security
 import flask.ext.login as login
 
 import logging
-_log = logging.getLogger('caleydo_security_flask.' + __name__)
+_log = logging.getLogger(__name__)
 
 class User(security.User, login.UserMixin):
   def __init__(self, id):
