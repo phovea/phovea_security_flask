@@ -1,5 +1,5 @@
-Caleydo Data HDF
+Caleydo Security Flask
 =====================
 
-a data provider for files stored in the hierarchical data format
+Security manager implementation based on flask-login
 
