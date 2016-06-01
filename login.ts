@@ -41,7 +41,11 @@ export function logout() : Promise<any> {
 export function bindLoginForm(form: HTMLFormElement, callback: (error, user) => any) {
   if (!C.offline) {
     ajax.getJSON('/loggedinas')
-      .then((user) => callback(null, user))
+      .then((user) => {
+        if (user !== 'not_yet_logged_in' && user.name) {
+          callback(null, user);
+        }
+      })
       .catch((error) => {
         //ignore not yet logged in
       });
