@@ -100,7 +100,7 @@ class FlaskLoginManager(security.SecurityManager):
         user_obj = self.current_user
         _log.debug('user login: '+user_obj.name)
         return flask.jsonify(name=user_obj.name,roles=user_obj.roles)
-      return 'not_yet_logged_in'
+      return '"not_yet_logged_in"'
 
   def login_required(self, f):
     return self._manager.login_required(f)
