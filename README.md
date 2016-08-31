@@ -1,7 +1,7 @@
 Caleydo Security Flask ![Caleydo Web Server Plugin](https://img.shields.io/badge/Caleydo%20Web-Server-10ACDF.svg) ![Caleydo Web Client Plugin](https://img.shields.io/badge/Caleydo%20Web-Client%20Plugin-F47D20.svg)
 =====================
 
-Security manager implementation based on flask-login. Additionally, a login module is provided that can be used at client-side.
+Security manager implementation based on [Flask-Login](https://flask-login.readthedocs.io/en/latest/). Additionally, a login module is provided that can be used at client-side.
 
 Installation
 ------------
