@@ -5,6 +5,9 @@ Security manager implementation based on [Flask-Login](https://flask-login.readt
 
 Installation
 ------------
+
+[Set up a virtual machine using Vagrant](http://www.caleydo.org/documentation/vagrant/) and run these commands inside the virtual machine:
+
 ```bash
 ./manage.sh clone Caleydo/caleydo_security_flask
 ./manage.sh resolve
