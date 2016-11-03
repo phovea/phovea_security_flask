@@ -1,13 +1,13 @@
 __author__ = 'Samuel Gratzl'
 
-import phovea_security_ns.flask_login
+from . import flask_login
 
 import hashlib
 
 def hash_password(password, salt):
   return hashlib.sha512(password + salt).hexdigest()
 
-class User(phovea_security_ns.flask_login.User):
+class User(flask_login.User):
   def __init__(self, id, password, salt, roles):
     super(User, self).__init__(id)
     self.name = id

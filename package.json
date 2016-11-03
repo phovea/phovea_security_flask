@@ -48,6 +48,24 @@
     "node": ">= 6",
     "iojs": ">= 3"
   },
+  "dependencies": {},
+  "name": "phovea_security_flask",
+  "description": "",
+  "homepage": "https://phovea.caleydo.org",
+  "version": "0.0.1",
+  "author": {
+    "name": "The Caleydo Team",
+    "email": "contact@caleydo.org",
+    "url": "https://caleydo.org"
+  },
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/phovea/phovea_security_flask/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phovea/phovea_security_flask.git"
+  },
   "devDependencies": {
     "@types/jasmine": "^2.5.35",
     "awesome-typescript-loader": "^2.2.4",
@@ -77,23 +95,5 @@
     "url-loader": "^0.5.7",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-server": "^2.1.0-beta.9"
-  },
-  "dependencies": {},
-  "name": "phovea_security_flask",
-  "description": "",
-  "homepage": "https://phovea.caleydo.org",
-  "version": "0.0.1",
-  "author": {
-    "name": "The Caleydo Team",
-    "email": "contact@caleydo.org",
-    "url": "https://caleydo.org"
-  },
-  "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/phovea/phovea_security_flask/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/phovea/phovea_security_flask.git"
   }
 }

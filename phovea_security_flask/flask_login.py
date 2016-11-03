@@ -2,7 +2,7 @@ __author__ = 'Samuel Gratzl'
 
 import phovea_server.security as security
 
-from phovea_server import ns.ext.login as login
+from flask.ext.login import login
 
 import logging
 _log = logging.getLogger(__name__)

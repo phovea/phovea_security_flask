@@ -1,17 +1,15 @@
 /**
  *
  */
-/// <amd-dependency path="text!./_login_form.html" name="formTemplate"/>
-import * as ajax from 'phovea_core/src/ajax';
-import * as C from 'phovea_core/src/index';
+import * as formTemplate from './_login_form.html';
+import {send, getJSON} from 'phovea_core/src/ajax';
+import {offline} from 'phovea_core/src/index';
 import * as session from 'phovea_core/src/session';
-
-declare var formTemplate:string;
 
 export const form = formTemplate;
 
 export function login(username:string, password:string, remember = false) {
-  return ajax.send('/login', {
+  return send('/login', {
     username: username,
     password: password,
     remember: remember
@@ -27,8 +25,8 @@ export function login(username:string, password:string, remember = false) {
 }
 
 export function logout() : Promise<any> {
-  if (!C.offline) {
-    return ajax.send('/logout', {}, 'post').then(function (user) {
+  if (!offline) {
+    return send('/logout', {}, 'post').then(function (user) {
       session.remove('user');
       session.remove('user_obj');
     });
@@ -39,8 +37,8 @@ export function logout() : Promise<any> {
 }
 
 export function bindLoginForm(form: HTMLFormElement, callback: (error, user) => any) {
-  if (!C.offline) {
-    ajax.getJSON('/loggedinas')
+  if (!offline) {
+    getJSON('/loggedinas')
       .then((user) => {
         if (user !== 'not_yet_logged_in' && user.name) {
           callback(null, user);
