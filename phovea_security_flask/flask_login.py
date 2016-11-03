@@ -1,8 +1,8 @@
 __author__ = 'Samuel Gratzl'
 
-import caleydo_server.security as security
+import phovea_server.security as security
 
-import flask.ext.login as login
+from phovea_server import ns.ext.login as login
 
 import logging
 _log = logging.getLogger(__name__)
@@ -34,15 +34,15 @@ class UserStore(object):
   def logout(self, user):
     pass
 
-class FlaskLoginManager(security.SecurityManager):
+class NamespaceLoginManager(security.SecurityManager):
   def __init__(self):
-    super(FlaskLoginManager, self).__init__()
+    super(NamespaceLoginManager, self).__init__()
     self._manager = login.LoginManager()
     self._manager.user_loader(self._load_user)
     self._manager.request_loader(self._load_user_from_request)
     self._manager.login_view = None
 
-    import caleydo_server.plugin as plugin
+    import phovea_server.plugin as plugin
     self._user_stores = [p.load().factory()  for p in plugin.list('user_stores')]
     if len(self._user_stores) == 0:
       _log.info('using dummy store')
@@ -61,17 +61,17 @@ class FlaskLoginManager(security.SecurityManager):
     self._manager.init_app(app)
 
   def add_login_routes(self, app):
-    import flask
+    from phovea_server import ns
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
-      if flask.request.method == 'POST':
-        user = flask.request.values['username']
-        user_obj = self.login(user, flask.request.values)
+      if ns.request.method == 'POST':
+        user = ns.request.values['username']
+        user_obj = self.login(user, ns.request.values)
         if not user_obj:
-          return flask.abort(401)  # 401 Unauthorized
+          return ns.abort(401)  # 401 Unauthorized
         _log.debug('user login: '+user)
-        return flask.jsonify(name=user_obj.name,roles=user_obj.roles)
+        return ns.jsonify(name=user_obj.name,roles=user_obj.roles)
 
       #return a login mask
       login_mask = """
@@ -87,19 +87,19 @@ class FlaskLoginManager(security.SecurityManager):
       </body>
       </html>
       """
-      return flask.render_template_string(login_mask)
+      return ns.render_template_string(login_mask)
 
     @app.route('/logout', methods=['POST'])
     def logout():
       self.logout()
-      return flask.jsonify(msg='Bye Bye')
+      return ns.jsonify(msg='Bye Bye')
 
     @app.route('/loggedinas')
     def loggedinas():
       if self.is_authenticated():
         user_obj = self.current_user
         _log.debug('user login: '+user_obj.name)
-        return flask.jsonify(name=user_obj.name,roles=user_obj.roles)
+        return ns.jsonify(name=user_obj.name,roles=user_obj.roles)
       return '"not_yet_logged_in"'
 
   def login_required(self, f):
@@ -157,4 +157,4 @@ class FlaskLoginManager(security.SecurityManager):
     return None
 
 def create():
-  return FlaskLoginManager()
+  return NamespaceLoginManager()

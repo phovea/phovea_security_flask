@@ -2,9 +2,9 @@
  *
  */
 /// <amd-dependency path="text!./_login_form.html" name="formTemplate"/>
-import ajax = require('../caleydo_core/ajax');
-import C = require('../caleydo_core/main');
-import session = require('../caleydo_core/session');
+import * as ajax from 'phovea_core/src/ajax';
+import * as C from 'phovea_core/src/index';
+import * as session from 'phovea_core/src/session';
 
 declare var formTemplate:string;
 
