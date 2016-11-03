@@ -1,0 +1,34 @@
+{
+  "generator-phovea": {
+    "type": "lib-server",
+    "name": "phovea_security_flask",
+    "author": "The Caleydo Team",
+    "githubAccount": "phovea",
+    "modules": [
+      "phovea_server"
+    ],
+    "extensions": [],
+    "sextensions": [
+      {
+        "type": "manager",
+        "id": "security_manager",
+        "module": "flask_login",
+        "extras": {
+          "singleton": true
+        }
+      }
+    ],
+    "libraries": [],
+    "unknown": {
+      "requirements": [
+        "Flask-Login==0.3.0"
+      ],
+      "debianPackages": [],
+      "redhatPackages": []
+    },
+    "libraryAliases": {},
+    "entries": "./index.js",
+    "ignores": [],
+    "today": "Thu, 03 Nov 2016 14:59:48 GMT"
+  }
+}
