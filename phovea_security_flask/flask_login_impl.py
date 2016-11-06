@@ -1,6 +1,6 @@
 
 import phovea_server.security as security
-from  flask_login import login
+import flask_login
 import logging
 
 
@@ -8,7 +8,7 @@ __author__ = 'Samuel Gratzl'
 _log = logging.getLogger(__name__)
 
 
-class User(security.User, login.UserMixin):
+class User(security.User, flask_login.UserMixin):
   def __init__(self, id):
     self.id = id
     pass
@@ -40,7 +40,7 @@ class UserStore(object):
 class NamespaceLoginManager(security.SecurityManager):
   def __init__(self):
     super(NamespaceLoginManager, self).__init__()
-    self._manager = login.LoginManager()
+    self._manager = flask_login.LoginManager()
     self._manager.user_loader(self._load_user)
     self._manager.request_loader(self._load_user_from_request)
     self._manager.login_view = None
@@ -111,23 +111,26 @@ class NamespaceLoginManager(security.SecurityManager):
 
   @property
   def current_user(self):
-    return login.current_user
+    return flask_login.current_user
 
   def logout(self):
     u = self.current_user
     _log.debug('user logout: ' + (u.name if hasattr(u, 'name') else str(u)))
     for store in self._user_stores:
       store.logout(u)
-    login.logout_user()
+    flask_login.logout_user()
 
-  def login(self, username, extra_fields={}):
+  def login(self, username, extra_fields=None):
+    if extra_fields is None:
+      extra_fields = {}
+
     def str2bool(v):
       return v if isinstance(v, bool) else v.lower() in ('yes', 'true', 't', '1')
 
     for store in self._user_stores:
       u = store.login(username, extra_fields)
       if u:
-        login.login_user(u, remember=str2bool(extra_fields.get('remember', False)))
+        flask_login.login_user(u, remember=str2bool(extra_fields.get('remember', False)))
         return u
     return None
 
