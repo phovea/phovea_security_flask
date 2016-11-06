@@ -1,13 +1,13 @@
 __author__ = 'Samuel Gratzl'
 
-import caleydo_security_flask.flask_login
+from . import flask_login
 
 import hashlib
 
 def hash_password(password, salt):
   return hashlib.sha512(password + salt).hexdigest()
 
-class User(caleydo_security_flask.flask_login.User):
+class User(flask_login.User):
   def __init__(self, id, password, salt, roles):
     super(User, self).__init__(id)
     self.name = id
@@ -29,10 +29,10 @@ class User(caleydo_security_flask.flask_login.User):
 
 class UserStore(object):
   def __init__(self):
-    import caleydo_server.config
+    import phovea_server.config
 
     self._users = [User(v['name'], v['password'], v['salt'], v['roles']) for v in
-                   caleydo_server.config.get('caleydo_security_flask.users')]
+                   phovea_server.config.get('phovea_security_ns.users')]
 
   def load(self, id):
     return next((u for u in self._users if u.id == id), None)
