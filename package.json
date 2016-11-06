@@ -48,7 +48,9 @@
     "node": ">= 6",
     "iojs": ">= 3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "phovea_core": "github:phovea/phovea_core"
+  },
   "name": "phovea_security_flask",
   "description": "",
   "homepage": "https://phovea.caleydo.org",

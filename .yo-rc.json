@@ -5,6 +5,7 @@
     "author": "The Caleydo Team",
     "githubAccount": "phovea",
     "modules": [
+      "phovea_core",
       "phovea_server"
     ],
     "extensions": [],
