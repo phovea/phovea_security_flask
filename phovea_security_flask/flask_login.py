@@ -1,11 +1,12 @@
-__author__ = 'Samuel Gratzl'
 
 import phovea_server.security as security
-
 from flask.ext.login import login
-
 import logging
+
+
+__author__ = 'Samuel Gratzl'
 _log = logging.getLogger(__name__)
+
 
 class User(security.User, login.UserMixin):
   def __init__(self, id):
@@ -14,9 +15,10 @@ class User(security.User, login.UserMixin):
 
   def get_id(self):
     try:
-        return unicode(self.id)  # python 2
+      return unicode(self.id)  # python 2
     except NameError:
-        return str(self.id)  # python 3
+      return str(self.id)  # python 3
+
 
 class UserStore(object):
   def __init__(self):
@@ -28,11 +30,12 @@ class UserStore(object):
   def load_from_key(self, api_key):
     return None
 
-  def login(self, username, extra_fields = {}):
+  def login(self, username, extra_fields={}):
     return None
 
   def logout(self, user):
     pass
+
 
 class NamespaceLoginManager(security.SecurityManager):
   def __init__(self):
@@ -43,7 +46,7 @@ class NamespaceLoginManager(security.SecurityManager):
     self._manager.login_view = None
 
     import phovea_server.plugin as plugin
-    self._user_stores = [p.load().factory()  for p in plugin.list('user_stores')]
+    self._user_stores = [p.load().factory() for p in plugin.list('user_stores')]
     if len(self._user_stores) == 0:
       _log.info('using dummy store')
       import dummy_store
@@ -55,6 +58,7 @@ class NamespaceLoginManager(security.SecurityManager):
       if u:
         return u
     return None
+
   #  return User.query.get(int(id))
 
   def init_app(self, app):
@@ -70,10 +74,10 @@ class NamespaceLoginManager(security.SecurityManager):
         user_obj = self.login(user, ns.request.values)
         if not user_obj:
           return ns.abort(401)  # 401 Unauthorized
-        _log.debug('user login: '+user)
-        return ns.jsonify(name=user_obj.name,roles=user_obj.roles)
+        _log.debug('user login: ' + user)
+        return ns.jsonify(name=user_obj.name, roles=user_obj.roles)
 
-      #return a login mask
+      # return a login mask
       login_mask = """
       <!DOCTYPE html>
       <html>
@@ -98,8 +102,8 @@ class NamespaceLoginManager(security.SecurityManager):
     def loggedinas():
       if self.is_authenticated():
         user_obj = self.current_user
-        _log.debug('user login: '+user_obj.name)
-        return ns.jsonify(name=user_obj.name,roles=user_obj.roles)
+        _log.debug('user login: ' + user_obj.name)
+        return ns.jsonify(name=user_obj.name, roles=user_obj.roles)
       return '"not_yet_logged_in"'
 
   def login_required(self, f):
@@ -111,18 +115,19 @@ class NamespaceLoginManager(security.SecurityManager):
 
   def logout(self):
     u = self.current_user
-    _log.debug('user logout: '+(u.name if hasattr(u,'name') else str(u)))
+    _log.debug('user logout: ' + (u.name if hasattr(u, 'name') else str(u)))
     for store in self._user_stores:
       store.logout(u)
     login.logout_user()
 
-  def login(self, username, extra_fields = {}):
+  def login(self, username, extra_fields={}):
     def str2bool(v):
       return v if isinstance(v, bool) else v.lower() in ('yes', 'true', 't', '1')
+
     for store in self._user_stores:
       u = store.login(username, extra_fields)
       if u:
-        login.login_user(u, remember=str2bool(extra_fields.get('remember',False)))
+        login.login_user(u, remember=str2bool(extra_fields.get('remember', False)))
         return u
     return None
 
@@ -155,6 +160,7 @@ class NamespaceLoginManager(security.SecurityManager):
 
     # finally, return None if both methods did not login the user
     return None
+
 
 def create():
   return NamespaceLoginManager()

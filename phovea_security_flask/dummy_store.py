@@ -1,11 +1,12 @@
+from . import flask_login
+import hashlib
+
 __author__ = 'Samuel Gratzl'
 
-from . import flask_login
-
-import hashlib
 
 def hash_password(password, salt):
   return hashlib.sha512(password + salt).hexdigest()
+
 
 class User(flask_login.User):
   def __init__(self, id, password, salt, roles):
@@ -27,6 +28,7 @@ class User(flask_login.User):
     given_h = hash_password(given, self._salt)
     return given_h == self._password
 
+
 class UserStore(object):
   def __init__(self):
     import phovea_server.config
@@ -43,7 +45,7 @@ class UserStore(object):
       return None
     return next((u for u in self._users if u.id == parts[0] and u.is_password(parts[1])), None)
 
-  def login(self, username, extra_fields = {}):
+  def login(self, username, extra_fields={}):
     return next((u for u in self._users if u.id == username and u.is_password(extra_fields['password'])), None)
 
   def logout(self, user):

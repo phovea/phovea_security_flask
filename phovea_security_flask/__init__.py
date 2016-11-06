@@ -10,9 +10,7 @@ def phovea(registry):
   register extension points
   :param registry:
   """
-  registry.append('manager','security_manager','phovea_security_flask.flask_login', {
-   'singleton': True
-  })
+  registry.append('manager', 'security_manager', 'phovea_security_flask.flask_login', dict(singleton=True))
   pass
 
 
