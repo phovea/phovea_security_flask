@@ -11,6 +11,5 @@ import {register} from 'phovea_core/src/plugin';
  */
 //other modules
 import 'phovea_core/phovea_registry.js';
-import 'phovea_server/phovea_registry.js';
 //self
 register('phovea_security_flask',require('./phovea.js'));
