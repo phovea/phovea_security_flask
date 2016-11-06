@@ -6,7 +6,7 @@ import {send, getJSON} from 'phovea_core/src/ajax';
 import {offline} from 'phovea_core/src/index';
 import * as session from 'phovea_core/src/session';
 
-export const form = formTemplate;
+export const form = String(formTemplate);
 
 export function login(username:string, password:string, remember = false) {
   return send('/login', {
