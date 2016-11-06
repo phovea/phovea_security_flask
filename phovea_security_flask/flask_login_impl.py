@@ -1,6 +1,6 @@
 
 import phovea_server.security as security
-from flask.ext.login import login
+from  flask_login import login
 import logging
 
 

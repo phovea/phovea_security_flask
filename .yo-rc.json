@@ -13,7 +13,7 @@
       {
         "type": "manager",
         "id": "security_manager",
-        "module": "flask_login",
+        "module": "flask_login_impl",
         "extras": {
           "singleton": true
         }

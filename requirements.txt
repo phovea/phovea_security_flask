@@ -1,2 +1,2 @@
 -e git+https://github.com/phovea/phovea_server.git#egg=phovea_server
-Flask-Login==0.3.0
+flask-login==0.4.0
