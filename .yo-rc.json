@@ -29,6 +29,7 @@
     "libraryAliases": {},
     "entries": "./index.js",
     "ignores": [],
-    "today": "Thu, 03 Nov 2016 14:59:48 GMT"
+    "today": "Thu, 03 Nov 2016 14:59:48 GMT",
+    "libraryExternals": []
   }
 }
