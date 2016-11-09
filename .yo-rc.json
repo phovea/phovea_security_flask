@@ -22,7 +22,7 @@
     "libraries": [],
     "unknown": {
       "requirements": [
-        "Flask-Login==0.3.0"
+        "flask-login==0.4.0"
       ],
       "debianPackages": [],
       "redhatPackages": []
