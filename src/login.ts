@@ -1,7 +1,7 @@
 /**
  *
  */
-import * as formTemplate from 'html!./_login_form.html';
+import * as formTemplate from 'html-loader!./_login_form.html';
 import {send, getJSON} from 'phovea_core/src/ajax';
 import {offline} from 'phovea_core/src/index';
 import * as session from 'phovea_core/src/session';
