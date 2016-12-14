@@ -45,7 +45,7 @@
   "main": "build/phovea_security_flask.js",
   "engines": {
     "npm": "3.10.9",
-    "node": "7.2.1",
+    "node":"7.2.1"
   },
   "dependencies": {
     "phovea_core": "github:phovea/phovea_core"
