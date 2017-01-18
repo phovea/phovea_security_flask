@@ -10,9 +10,9 @@ export const form = String(formTemplate);
 
 export function login(username:string, password:string, remember = false) {
   return send('/login', {
-    username: username,
-    password: password,
-    remember: remember
+    username,
+    password,
+    remember
   }, 'post').then(function (user) {
     session.store('user', user.name);
     session.store('user_obj', user);
