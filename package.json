@@ -53,7 +53,7 @@
     "iojs": ">= 3"
   },
   "dependencies": {
-    "phovea_core": "github:phovea/phovea_core#feature_update_dependencies"
+    "phovea_core": "github:phovea/phovea_core#develop"
   },
   "name": "phovea_security_flask",
   "description": "",
