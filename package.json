@@ -19,7 +19,7 @@
     "pretest:python": "npm run check",
     "posttest:web": "npm run lint",
     "pretest": "echo hybrid",
-    "test:web": "karma start",
+    "test:web": "test ! -d tests || karma start",
     "test:python": "test ! -d tests || python setup.py test",
     "test": "npm run test:web && npm run test:python",
     "compile": "tsc",
@@ -40,11 +40,12 @@
     "release:major": "npm version major && npm publish && git push --follow-tags",
     "release:minor": "npm version minor && npm publish && git push --follow-tags",
     "release:patch": "npm version patch && npm publish && git push --follow-tags",
-    "predist:web": "npm run build",
+    "predist:web": "npm run build:web && npm run docs:web",
     "predist": "echo hybrid",
     "dist:web": "mkdirp dist && cd build && tar cvzf ../dist/phovea_security_flask.tar.gz *",
     "dist:python": "python setup.py bdist_egg",
-    "dist": "npm run dist:web && npm run dist:python"
+    "dist": "npm run dist:web && npm run dist:python",
+    "predist:python": "npm run build:python && npm run docs:python"
   },
   "main": "build/phovea_security_flask.js",
   "engines": {
