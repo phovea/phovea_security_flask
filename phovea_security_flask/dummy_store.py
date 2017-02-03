@@ -29,12 +29,27 @@ class User(flask_login_impl.User):
     return given_h == self._password
 
 
+def from_env_var(k, v):
+  elems = v.split(';')
+  name = k[12:]  # PHOVEA_USER_
+  salt = elems[0]
+  password = elems[1]
+  roles = elems[2:]
+  return User(name, password, salt, roles)
+
+
 class UserStore(object):
   def __init__(self):
     import phovea_server.config
+    import os
 
-    self._users = [User(v['name'], v['password'], v['salt'], v['roles']) for v in
-                   phovea_server.config.get('phovea_security_flask.users')]
+    # define users via env variables
+    env_users = [from_env_var(k, v) for k, v in os.environ.entries() if k.startswith('PHOVEA_USER_')]
+    if env_users:
+      self._users = env_users
+    else:
+      self._users = [User(v['name'], v['password'], v['salt'], v['roles']) for v in
+                     phovea_server.config.get('phovea_security_flask.users')]
 
   def load(self, id):
     return next((u for u in self._users if u.id == id), None)
