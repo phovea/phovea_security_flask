@@ -44,7 +44,7 @@ class UserStore(object):
     import os
 
     # define users via env variables
-    env_users = [from_env_var(k, v) for k, v in os.environ.entries() if k.startswith('PHOVEA_USER_')]
+    env_users = [from_env_var(k, v) for k, v in os.environ.items() if k.startswith('PHOVEA_USER_')]
     if env_users:
       self._users = env_users
     else:
