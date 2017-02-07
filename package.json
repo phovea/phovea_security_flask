@@ -46,7 +46,7 @@
     "dist:python": "python setup.py bdist_egg",
     "dist": "npm run dist:web && npm run dist:python",
     "prebuild:python": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:python",
-    "prebuild:web": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:web",
+    "prebuild:web": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:web"
   },
   "main": "build/phovea_security_flask.js",
   "engines": {
