@@ -25,13 +25,13 @@
     "compile": "tsc",
     "lint": "tslint -c tslint.json src/**.ts tests/**.ts",
     "docs:web": "typedoc --options typedoc.json src/**.ts",
-    "docs:python": "echo todo creating docs...",
+    "docs:python": "sphinx-apidoc -o docs -f ./phovea_security_flask && sphinx-build ./docs build/docs",
     "docs": "npm run docs:web && npm run docs:python",
     "prebuild": "echo hybrid",
     "posttest": "echo hybrid",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
     "build:dev": "webpack",
-    "build:python": "python -c \"from distutils.dir_util import mkpath ; mkpath('./build/source')\" && (tar -c ./phovea_security_flask --exclude '*.pyc' | tar -xC build/source)",
+    "build:python": "python build.py",
     "build:web": "webpack --env prod",
     "build": "npm run build:web && npm run build:python",
     "start": "webpack-dev-server --inline",
@@ -46,7 +46,8 @@
     "dist:python": "python setup.py bdist_egg",
     "dist": "npm run dist:web && npm run dist:python",
     "prebuild:python": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:python",
-    "prebuild:web": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:web"
+    "prebuild:web": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:web",
+    "predist:python": "npm run build:python && npm run docs:python"
   },
   "main": "build/phovea_security_flask.js",
   "engines": {
