@@ -107,7 +107,7 @@ class NamespaceLoginManager(security.SecurityManager):
       return '"not_yet_logged_in"'
 
   def login_required(self, f):
-    return self._manager.login_required(f)
+    return flask_login.login_required(f)
 
   @property
   def current_user(self):
