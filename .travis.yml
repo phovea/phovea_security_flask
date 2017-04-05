@@ -3,40 +3,50 @@ sudo: required
 env:
 - TOXENV=py27
 - TOXENV=py34
-
 node_js:
 - 6
-
 addons:
   firefox: 49.0.1
-
 before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - nvm install 6
 - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
-
 install:
-- (!(test -f docker_packages.txt) || (cat docker_packages.txt | xargs sudo apt-get install -y))
+- "(!(test -f docker_packages.txt) || (cat docker_packages.txt | xargs sudo apt-get
+  install -y))"
 - pip install -r requirements_dev.txt
 - pip install -r requirements.txt
 - npm install
-
 script: npm run dist
-
-deploy:
-  provider: releases
-  api_key:
-    secure: TK9/P34Bi3WuppiDrBCwVcn41yCBwmILaU8hXTBzUPbT7TbeFIwsC6/4CtH85Z+ZrUve4S5pTmWRNf2dQDxWw3uYu7+bJuemV2J1LHG76mognj+TNEiYxfLQUt3Gql4W7C7FcI4Rlx5/uMN9wY1wro8TWUBMwT6jjSrUWIvK3GXoojd5bHvJx07XpjWl9wCon4D0ruZiFoM2mdeP23lbc2GckETi32oEKswnQXxkMACmxbPzoWbvkxH4aK8Bt2Rj2sl2TbPhVkN6DAkHGkGAvLI+2/aRfG27+oo3OKsaDjbuGABct8TfZccJ970CbQ8kbnCjYxstvqkg1JWjF0W67sX/flBZZOEUA5l0OLWo6HqMGMxm7/lEQhIdPMsRmvXL+HVOxkMrB2dda58QzxVwiZp+rRqUaeabPZp8Kl5xodGrVxsBvxe6zAbJ5jCtCSumG6+kLyKI00/kYlghqQNrgUw0ZsYJlQ34h3lo/24QpaeyDpQoCkGWQgtgqiXGpeKSu7bCnOqIqAy3nbT9Utwj7K8gIasTG5idosEAz/THMampNbGDuyxxc340sYGNMg9Bhm1g2ILWRdtV470p5hwBtIDTKi3/PAizEO26+Wh0zI47Sg3ao57avcbCsTmzbZUeA5J4bojmchhJCHX8su9cSCGh/2fJA/1eBIgEvOQ8LNE=
-  file_glob: true
-  file:
-   - dist/phovea_security_flask*.egg
-   - dist/phovea_security_flask.tar.gz
-  on:
-    tags: true
-
 notifications:
   slack:
-    secure: E8/1UIdHSczUbN+6i6gd1d5LM4vmLdwLQ30tpyjvnM0wvfDce76oPxLJAy240WJ5ybXRZUtNrttpVpt4tEXCy8aLFCmxD7s77rVloH+q1J8R/ptTFWZGhFGEujk1awEmVbzcWxJkV9/JENQaeGBKxwv8/EQwWwEkAb7p/+AJb9owmH88b3wUZUGHBWtbMiyyaF4Rm1Wg1stJB8Z1Ga7PRF4cqufTgcDdsCPVv9gAY+VxOIGqX/Vfuc9UWpUH8vq8lHUE7Inn5QS78kuFfSgLWga3H6Mu/Gko1XNlWk0QWWQBUvEZ6ZC6Wuo68KzvUjJHDTnx8WyfHue2JNHIslcX+eJq2WHLeEgM24VeNkILCGo/H/60NGHiSjrIv/Y9h6bQ9FDjo6TUyE4nbdPYN1RN9FQ5UbI9Y4Gi753H9mqnHWlEywBOzHxdZCAuz9Wh03CCF/blsvJ+Obbyo6Jrfe+g44jyi9kQdBNQ78qG6v4EXws8FiYao6x3PpgIwFix42Cpr+soAh5FpA3C1zHSAyZZpXF65/lrDl5yPNofK7Wy0B9bw+0I6Z/u7ZKFNVZXvYPGYvtUVcsALGBdmYc61+LCta36Po0KZseWVAlJj6QnOJDYzv0wvV/zsuf9A5KpYFGiqV9Q7zmtiO5FYF5sBy+lE7O9tHVO4O18IRndhRQgxhs=
+    secure: S52ExoUgoNx1nkCaN/S4z20BBIwO0tA0+ugr8Hej19yQdbAZs10eBKPGSuGXjtW7a9V2TB03FH4Arek7b9T3yFsvSfIjNe5ztPQPfMYMeiONDSQcewSHmBcVCfDWkZ7oPC1/sbzPLKPRI1LNfo6j6ql5ZWeKEY87e7nnSMS8Zka+/zSMllCB9Q5i740uG4dB36KfmlEkY095Az9Jf5XgMWOyM9NjzqVOw69mTB0izCo17tWTYWC6mr9MiWbGn1lVV+72ZaE141lkuC2bg+UmGEjOMrMhSrIfW3LpRCOImE2GBufD3t44zBEVmPvdbfA2d9C28cRcVWCUx7F5riy/Iudi0UvzW21I4C3G7rqLz9iWcEPPoqcy2ShJd7PGq79HR6pXT3jY0f7gcvC3PLE/2dB5B5HdcSpK7forBmoLyUE4NizBsRP2qU0l8x/ups/t2Z5UNkiDjZESoISXEq7idUhvKfHrjqJfP1KgcBF7wyr/J9oxOzRakZCWn+tIcJMVXK+lGmLQI4yWtS6aHrHUODJNOUCtysbvtJjL1TIHtfXwZMSGkXBjgjz+xJEr0H+d3DPlN/nA+i6gcOjuU+dA7TYdoVZ1a8FxcfZzroCBVgOOs79mEsWPKnogHmhaj2ahFYE5guXBFy9AUM9XcGE9LIsOnurrh7Huj1qIe/oXgwg=
     on_success: change
     on_failure: always
+deploy:
+- provider: releases
+  api_key:
+    secure: YHm6ykz8crvmZTh8O2suOFvM/yyhueIE7R/yc4vH5OvlQ8lfy/tJ9QNh8OZ3LkrrWMDmhMXCvReUZaacJKc2abMtO2wX5zQn61KXvZwdrxDKdj/tKHGt7sSsZj2/QgV2eAw6xpoIOEsQqGl+jTGuyyl7EB1WyOP6ZTfGbYDJGkMEyDdrG70DzlIF7sTO/AOwTtj0DiiihVTMfa9apaX1OgjZtu65spb/QnihiGlRyW9rMYKznPLP19eUjOH/Dd5jd5aeMIWaLkF6Xsb/uus4ulOP1uOCfAP1q0ULvsn54hlL5N9zq6nX0VuAf8ieaR1N5M1AI/XO9vt5hmQ9XADfBV4OUaqIh6ZsWAjsBu6TmzL+1XFJ0G2AfF4EFT+OUuYpCmuH3tZyocqWU2C7bLxwDNkoyu6F+ge9YZCz+GThmWYJs9ELbBXwneOQwaDjKoyzQ2TVKGYqUbori8b/n5DPjJDI4qU0oNXuCwb3n77o3l5ntHOq/8+3rJkywC8Fm/g7/peW+pE3Rrb9Xo9SdKmG3vYh/WjDBoEje1hD1/LWPZJs0skOq1S0OvoI4uGKuhX1G/HQlfEGgikeXojF9xP07d3T1ZZDjKEufrHQ4RacCYRIDZrEFXLxKu7VNE87BIuo0xNVyp+1o+JrfKRdmE41mr+aIx0B+67rTyw2RKks0GQ=
+  file_glob: true
+  file:
+  - dist/phovea_security_flask*.egg
+  - dist/phovea_security_flask.tar.gz
+  on:
+    tags: true
+    repo: phovea/phovea_security_flask
+- provider: npm
+  email: samuel.gratzl@jku.at
+  api_key:
+    secure: xHvo+qsduckAf+nfH/e6pgHNVlv04/Yupr/fV9vdkD7Ho6Uig4wPc1s/779GIJv80ilTcv3puZnW7DMfwoutodmXWMYtAht+8lv+wSDHaG0/K9FmkJJtKhd3milvWEM4jAkmbel4amI4E+kqgJiNshXlrdsrhF9mVpyS04WEbV0dXvmFS8krYIFIhjvB3ot61pxPsGJd/DHRviVvU6+kzMLQOzlywdAZ41DfwufNtZQNqLcUsUMk+ma/1HcAljuAVi3xkdcCBQNJDEpwjCmKk9XbaMD15hy6LY+vEqKTB5HieXrFoML6cyNTMLPELuuyBRSV6JMG5k010/PgI0ODSuTARBPmbiBpa43aikD9wLEZX+O/6n9sWe4aRL5n2BU/5tUPmIZ4DC3DDGe12z1mBH8CuQdy4ZatsnU3Oc4xB8fA5z4yBljbhnD6mSF9hAgvSU/XHjMevqxm8W2fCzqGBQek0m+HuqljfuLCe90tVNAw+KMTJHI04TqxSm/b72IYYi10L+X6siQRIx4R2bAUsCLiega9EZfKyyePD9bvzh/5sZeXOVJRS6Bh/NUG2ZtJut7eH1zrr5ikt9gNgLVSeUGzE9JOrHBsFv5x7PKr6+I0PV3BaDk2lOw5ySCaUFnHbuDv+dr3HOZ2GjmxHLrMVk4IqoYieUsyWtBLKB6gk38=
+  on:
+    tags: true
+    repo: phovea/phovea_security_flask
+- provider: pypi
+  user: caleydo-bot
+  password:
+    secure: tPZNRqwrS0LJ/Me3LQhovmRflUqsmtAcPPH8dqH06jz4vA1Ykof8+t3o/Qle43QRYNDN6WyLVTNwcc9045JZi9BXF3lTuXbAdpiedmGjcYUE8NabzPAYNMEMAoGTZ0e0WIoi/GaMHr1tzZPDhDkldasMsBGWYC4uLJUYBOoMtGqwwskk+3tZDLN0n+dlbF91LKbHk5trCxLIslhGhY0i5zjjzIIbV8eOMyu+Jx6T8u7mcCxZrC+1o5ydgy2PgvdZFDd1kfoYDRSnRDLRdrCXGiaKXKcAaer5091wf4iDDWUpRizZD7V9MPc62maeG40EUhju4+Tp4DGBYS26PEB9r45h3cvXremnpCiZlGGEJN7w/miGyGz72DZN2xbo/dOLSQaxdkMYZCPhiEHAA7MZ/eZopMwUfs03Hqm3zcYVwEWvj4O20/UR4uksY0uX6774YXgmrZl+jxB9SBe3AvYdvQqDT8henv/VOSCJ460TfPMHJSCvi4/G/+bVOULU+k9T9E9axi+UweTQVWbOf16iUWixFYMui2cI9jlvORz3IPsDvdicmGqC0H5z32jHo7rrho+nrKJO3s+85Mg3WPWpTYdt0qdaxvh4UOwogUWc52o0h8kARc9Bht66vi5qFm+pkXOc5HXKjZzJKbIhpKdscxVEoBWvM+v9dDqT4CMrI5o=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: phovea/phovea_security_flask
