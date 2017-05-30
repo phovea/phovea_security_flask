@@ -4,7 +4,7 @@
 import * as formTemplate from 'html-loader!./_login_form.html';
 import {send, getJSON} from 'phovea_core/src/ajax';
 import {offline} from 'phovea_core/src/index';
-import * as session from 'phovea_core/src/session';
+import * as security from 'phovea_core/src/security';
 
 export const form = String(formTemplate);
 
@@ -14,29 +14,26 @@ export function login(username:string, password:string, remember = false) {
     password,
     remember
   }, 'post').then(function (user) {
-    session.store('user', user.name);
-    session.store('user_obj', user);
-
+    security.login(user);
     return user;
   }).catch(function (error) {
-    session.remove('user');
-    session.remove('user_obj');
+    security.logout();
   });
 }
 
 export function logout() : Promise<any> {
   if (!offline) {
-    return send('/logout', {}, 'post').then(function (user) {
-      session.remove('user');
-      session.remove('user_obj');
+    return send('/logout', {}, 'post').then(() => {
+      security.logout();
+    }).catch(() => {
+      security.logout();
     });
   }
-  session.remove('user');
-  session.remove('user_obj');
+  security.logout();
   return Promise.resolve(true);
 }
 
-export function bindLoginForm(form: HTMLFormElement, callback: (error, user) => any) {
+export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any) {
   if (!offline) {
     getJSON('/loggedinas')
       .then((user) => {
