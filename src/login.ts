@@ -9,6 +9,7 @@ import * as security from 'phovea_core/src/security';
 export const form = String(formTemplate);
 
 export function login(username:string, password:string, remember = false) {
+  security.reset();
   return send('/login', {
     username,
     password,
@@ -34,10 +35,12 @@ export function logout() : Promise<any> {
 }
 
 export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any) {
+  security.reset();
   if (!offline) {
     getJSON('/loggedinas')
       .then((user) => {
         if (user !== 'not_yet_logged_in' && user.name) {
+          security.login(user);
           callback(null, user);
         }
       })
