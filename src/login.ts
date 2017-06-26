@@ -2,7 +2,7 @@
  *
  */
 import * as formTemplate from 'html-loader!./_login_form.html';
-import {send, getJSON} from 'phovea_core/src/ajax';
+import {send} from 'phovea_core/src/ajax';
 import {offline} from 'phovea_core/src/index';
 import * as security from 'phovea_core/src/security';
 
@@ -37,7 +37,7 @@ export function logout() : Promise<any> {
 export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any) {
   security.reset();
   if (!offline) {
-    getJSON('/loggedinas')
+    send('/loggedinas', {}, 'POST')
       .then((user) => {
         if (user !== 'not_yet_logged_in' && user.name) {
           security.login(user);

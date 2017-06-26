@@ -98,7 +98,7 @@ class NamespaceLoginManager(security.SecurityManager):
       self.logout()
       return ns.jsonify(msg='Bye Bye')
 
-    @app.route('/loggedinas')
+    @app.route('/loggedinas', methods=['POST'])
     def loggedinas():
       if self.is_authenticated():
         user_obj = self.current_user
