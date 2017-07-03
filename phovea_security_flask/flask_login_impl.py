@@ -68,6 +68,7 @@ class NamespaceLoginManager(security.SecurityManager):
     from phovea_server import ns
 
     @app.route('/login', methods=['GET', 'POST'])
+    @ns.no_cache
     def login():
       if ns.request.method == 'POST':
         user = ns.request.values['username']
@@ -94,6 +95,7 @@ class NamespaceLoginManager(security.SecurityManager):
       return ns.render_template_string(login_mask)
 
     @app.route('/logout', methods=['POST'])
+    @ns.nocache
     def logout():
       self.logout()
       return ns.jsonify(msg='Bye Bye')
