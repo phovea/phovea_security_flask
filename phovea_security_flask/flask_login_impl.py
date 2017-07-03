@@ -95,7 +95,7 @@ class NamespaceLoginManager(security.SecurityManager):
       return ns.render_template_string(login_mask)
 
     @app.route('/logout', methods=['POST'])
-    @ns.nocache
+    @ns.no_cache
     def logout():
       self.logout()
       return ns.jsonify(msg='Bye Bye')
