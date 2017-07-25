@@ -8,21 +8,31 @@ import * as security from 'phovea_core/src/security';
 
 export const form = String(formTemplate);
 
-export function login(username:string, password:string, remember = false) {
+/**
+ * try to login the given user
+ * @param {string} username username
+ * @param {string} password password
+ * @param {boolean} remember whether to set a long term cookie
+ * @return {Promise<never | any>} the result in case of a reject it was an invalid request
+ */
+export function login(username: string, password: string, remember = false) {
   security.reset();
-  return send('/login', {
-    username,
-    password,
-    remember
-  }, 'post').then(function (user) {
+  const r =send('/login', {username, password, remember}, 'post').then((user) => {
     security.login(user);
     return user;
-  }).catch(function (error) {
+  });
+  //separate for multiple catch clauses
+  r.catch(() => {
     security.logout();
   });
+  return r;
 }
 
-export function logout() : Promise<any> {
+/**
+ * logs the user out
+ * @return {Promise<any>} when done also from the server side
+ */
+export function logout(): Promise<any> {
   if (!offline) {
     return send('/logout', {}, 'post').then(() => {
       security.logout();
@@ -34,6 +44,11 @@ export function logout() : Promise<any> {
   return Promise.resolve(true);
 }
 
+/**
+ * helper to bind to a login form, assuming that fields `login_username`, `login_password` and `login_remember` exists
+ * @param {HTMLFormElement} form
+ * @param {(error: any, user: IUser) => any} callback
+ */
 export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any) {
   security.reset();
   if (!offline) {
@@ -44,7 +59,7 @@ export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user
           callback(null, user);
         }
       })
-      .catch((error) => {
+      .catch(() => {
         //ignore not yet logged in
       });
   }
@@ -55,7 +70,14 @@ export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user
     const rememberMe = (<any>form).login_remember.checked;
     login(username, password, rememberMe)
       .then((user) => callback(null, user))
-      .catch((error) => callback(error, null));
+      .catch((error) => {
+        if (error.response && error.response.status !== 401) { // 401 = Unauthorized
+          //server error
+          callback('not_reachable', null);
+        } else {
+          callback(error, null);
+        }
+      });
     event.stopPropagation();
     event.preventDefault();
   };
