@@ -26,6 +26,12 @@ Building
 npm run build
 ```
 
+Add new users
+-------
+
+New users are added to `phovea_security_flask/config.json`.
+
+The python script `encryptor.py` hashes a given password and prints salt and hashed password.  
 
 
 ***
