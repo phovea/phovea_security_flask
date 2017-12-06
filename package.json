@@ -31,7 +31,7 @@
     "posttest": "echo hybrid",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
     "build:dev": "webpack",
-    "build:python": "rm -rf build/source && find . -name '*.pyc' -delete && mkdir -p build/source && cp -r ./phovea_security_flask build/source/ && node buildPython.js",
+    "build:python": "rm -rf build/source && find . -name '*.pyc' -delete && node buildPython.js && cp -r ./phovea_security_flask build/source/",
     "build:web": "webpack --env prod",
     "build": "npm run build:web && npm run build:python",
     "start": "webpack-dev-server --inline",
