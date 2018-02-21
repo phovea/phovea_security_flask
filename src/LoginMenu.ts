@@ -4,8 +4,10 @@
 
 
 import {mixin} from 'phovea_core/src/index';
-import {bindLoginForm, form as loginForm, logout} from './login';
+import {EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM, ICustomizedLoginFormPluginDesc, ICustomizedLoginFormPlugin} from './extensions';
+import {bindLoginForm, form as defaultLoginForm, logout} from './login';
 import {EventHandler} from 'phovea_core/src/event';
+import {list as listPlugin} from 'phovea_core/src/plugin';
 import './style.scss';
 
 
@@ -51,12 +53,16 @@ export default class LoginMenu extends EventHandler {
   readonly node: HTMLUListElement;
 
   private readonly options: ILoginMenuOptions = {
-    loginForm,
+    loginForm: undefined,
     document
   };
+
+  private readonly customizer: ICustomizedLoginFormPluginDesc[];
+
   constructor(private readonly adapter: ILoginMenuAdapter, options: ILoginMenuOptions = {}) {
     super();
     mixin(this.options, options);
+    this.customizer = listPlugin(EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM);
     this.node = this.init();
   }
 
@@ -95,9 +101,17 @@ export default class LoginMenu extends EventHandler {
       });
     });
 
-    this.initLoginDialog(ul.ownerDocument.body);
+    const dialog = this.initLoginDialog(ul.ownerDocument.body);
+
+    this.runCustomizer(ul, dialog);
 
     return ul;
+  }
+
+  private runCustomizer(menu: HTMLElement, dialog: HTMLElement) {
+    Promise.all(this.customizer.map((d) => d.load())).then((loaded: ICustomizedLoginFormPlugin[]) => {
+      loaded.forEach((l) => l.factory(menu, dialog));
+    });
   }
 
   forceShowDialog() {
@@ -109,6 +123,15 @@ export default class LoginMenu extends EventHandler {
 
   private initLoginDialog(body: HTMLElement) {
 
+    let loginForm = this.options.loginForm;
+    if (!loginForm) {
+      const t = this.customizer.find((d) => d.template != null);
+      if (t) {
+        loginForm = t.template;
+      } else {
+        loginForm = defaultLoginForm;
+      }
+    }
     body.insertAdjacentHTML('beforeend', ` 
       <!--login dialog-->
       <div class="modal fade" id="loginDialog" tabindex="-1" role="dialog" aria-labelledby="loginDialog" data-keyboard="false" data-backdrop="static">
@@ -121,7 +144,7 @@ export default class LoginMenu extends EventHandler {
             </div>
             <div class="modal-body">
               <div class="alert alert-warning" role="alert">The server seems to be offline! Login not possible. Try again later.</div>
-              ${this.options.loginForm || loginForm}
+              ${loginForm}
             </div>
           </div>
         </div>
@@ -165,5 +188,7 @@ export default class LoginMenu extends EventHandler {
 
       this.adapter.hideDialog('#loginDialog');
     });
+
+    return dialog;
   }
 }
