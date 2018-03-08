@@ -49,7 +49,7 @@ export function logout(): Promise<any> {
  * @param {HTMLFormElement} form
  * @param {(error: any, user: IUser) => any} callback
  */
-export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any) {
+export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any, onSubmit?: ()=>void) {
   security.reset();
   if (!offline) {
     send('/loggedinas', {}, 'POST')
@@ -64,7 +64,9 @@ export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user
       });
   }
   form.onsubmit = (event) => {
-
+    if (onSubmit) {
+      onSubmit();
+    }
     const username = (<any>form).login_username.value;
     const password = (<any>form).login_password.value;
     const rememberMe = (<any>form).login_remember.checked;

@@ -187,6 +187,9 @@ export default class LoginMenu extends EventHandler {
       });
 
       this.adapter.hideDialog('#loginDialog');
+    }, () => {
+      // reset error
+      dialog.classList.remove('has-error', 'has-warning');
     });
 
     return dialog;
