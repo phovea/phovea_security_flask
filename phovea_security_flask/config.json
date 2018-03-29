@@ -10,8 +10,8 @@
     },
     {
       "name": "sam",
-      "salt": "fa3286ec10b74b67bb1c932e651b9021",
-      "password": "edb67d79645cb3d7d8e2acade8fdf03b4163d5f025c1c32e34df0e457e543779d13dff2760b10785a02cb60ded2b0811cadbaf034b6204e93e91fe42efc85049",
+      "salt": "2338b858597b4937ad1c5db4b524f56d",
+      "password": "814cbf874d3da7c01327b50c96bedf7db26357e0b4be25623242a33b33861651c3efd90d5c1a6410a646f356c73adf2de473611dee158672e8ee073767dc88f2",
       "roles": [
         "sam",
         "admin"
