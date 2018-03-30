@@ -85,8 +85,10 @@ export default class LoginMenu extends EventHandler {
         </li>`;
 
 
-    ul.querySelector('#logout_link').addEventListener('click', () => {
+    ul.querySelector('#logout_link').addEventListener('click', (evt) => {
       this.adapter.wait();
+      evt.preventDefault();
+      evt.stopPropagation();
       logout().then(() => {
         this.fire(LoginMenu.EVENT_LOGGED_OUT);
         const userMenu = <HTMLElement>doc.querySelector('#user_menu');
@@ -132,7 +134,7 @@ export default class LoginMenu extends EventHandler {
         loginForm = defaultLoginForm;
       }
     }
-    body.insertAdjacentHTML('beforeend', ` 
+    body.insertAdjacentHTML('beforeend', `
       <!--login dialog-->
       <div class="modal fade" id="loginDialog" tabindex="-1" role="dialog" aria-labelledby="loginDialog" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-sm">
