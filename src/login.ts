@@ -44,6 +44,16 @@ export function logout(): Promise<any> {
   return Promise.resolve(true);
 }
 
+export function loggedInAs() {
+  return send('/loggedinas', {}, 'POST')
+    .then((user) => {
+      if (user !== 'not_yet_logged_in' && user.name) {
+        return user;
+      }
+      return Promise.reject('invalid');
+    });
+}
+
 /**
  * helper to bind to a login form, assuming that fields `login_username`, `login_password` and `login_remember` exists
  * @param {HTMLFormElement} form
@@ -52,16 +62,12 @@ export function logout(): Promise<any> {
 export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any, onSubmit?: ()=>void) {
   security.reset();
   if (!offline) {
-    send('/loggedinas', {}, 'POST')
-      .then((user) => {
-        if (user !== 'not_yet_logged_in' && user.name) {
-          security.login(user);
-          callback(null, user);
-        }
-      })
-      .catch(() => {
-        //ignore not yet logged in
-      });
+    loggedInAs().then((user) => {
+      security.login(user);
+      callback(null, user);
+    }).catch(() => {
+      //ignore not yet logged in
+    });
   }
   form.onsubmit = (event) => {
     if (onSubmit) {

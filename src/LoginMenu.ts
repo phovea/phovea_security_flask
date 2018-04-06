@@ -3,11 +3,15 @@
  */
 
 
-import {mixin} from 'phovea_core/src/index';
+import {mixin} from 'phovea_core/src';
 import {EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM, ICustomizedLoginFormPluginDesc, ICustomizedLoginFormPlugin} from './extensions';
-import {bindLoginForm, form as defaultLoginForm, logout} from './login';
-import {EventHandler} from 'phovea_core/src/event';
+import {bindLoginForm, form as defaultLoginForm, logout, loggedInAs} from './login';
+import {EventHandler, on, off} from 'phovea_core/src/event';
 import {list as listPlugin} from 'phovea_core/src/plugin';
+import {GLOBAL_EVENT_AJAX_POST_SEND, send} from 'phovea_core/src/ajax';
+import startWatching from './watcher';
+
+const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
 import './style.scss';
 
 
@@ -18,6 +22,8 @@ export interface ILoginMenuOptions {
   loginForm?: string;
 
   document?: Document;
+
+  watch?: boolean;
 }
 
 export interface ILoginMenuAdapter {
@@ -54,7 +60,8 @@ export default class LoginMenu extends EventHandler {
 
   private readonly options: ILoginMenuOptions = {
     loginForm: undefined,
-    document
+    document,
+    watch: false
   };
 
   private readonly customizer: ICustomizedLoginFormPluginDesc[];
@@ -64,6 +71,10 @@ export default class LoginMenu extends EventHandler {
     mixin(this.options, options);
     this.customizer = listPlugin(EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM);
     this.node = this.init();
+
+    if (this.options.watch) {
+      startWatching(() => this.logout());
+    }
   }
 
   private init() {
@@ -86,21 +97,9 @@ export default class LoginMenu extends EventHandler {
 
 
     ul.querySelector('#logout_link').addEventListener('click', (evt) => {
-      this.adapter.wait();
       evt.preventDefault();
       evt.stopPropagation();
-      logout().then(() => {
-        this.fire(LoginMenu.EVENT_LOGGED_OUT);
-        const userMenu = <HTMLElement>doc.querySelector('#user_menu');
-        if (userMenu) {
-          userMenu.style.display = 'none';
-        }
-        (<HTMLElement>ul.querySelector('#login_menu')).style.display = null;
-        Array.from(doc.querySelectorAll('.login_required')).forEach((n: HTMLElement) => {
-          n.classList.add('disabled');
-        });
-        this.adapter.ready();
-      });
+      this.logout();
     });
 
     const dialog = this.initLoginDialog(ul.ownerDocument.body);
@@ -108,6 +107,23 @@ export default class LoginMenu extends EventHandler {
     this.runCustomizer(ul, dialog);
 
     return ul;
+  }
+
+  private logout() {
+    const doc = this.options.document;
+    this.adapter.wait();
+    logout().then(() => {
+      this.fire(LoginMenu.EVENT_LOGGED_OUT);
+      const userMenu = <HTMLElement>doc.querySelector('#user_menu');
+      if (userMenu) {
+        userMenu.style.display = 'none';
+      }
+      (<HTMLElement>this.node.querySelector('#login_menu')).style.display = null;
+      Array.from(doc.querySelectorAll('.login_required')).forEach((n: HTMLElement) => {
+        n.classList.add('disabled');
+      });
+      this.adapter.ready();
+    });
   }
 
   private runCustomizer(menu: HTMLElement, dialog: HTMLElement) {
