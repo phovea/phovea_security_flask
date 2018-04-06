@@ -20,7 +20,10 @@ export class SessionWatcher {
     on(GLOBAL_EVENT_AJAX_POST_SEND, () => this.reset());
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
+        this.start();
         this.checkSession();
+      } else {
+        this.pause();
       }
     });
   }
@@ -47,20 +50,24 @@ export class SessionWatcher {
   }
 
   private stop() {
-    if (this.timeout >= 0) {
-      clearTimeout(this.timeout);
-      this.timeout = -1;
-    }
+    this.pause();
     this.lastChecked = 0;
   }
 
   private reset() {
+    this.lastChecked = Date.now();
+    this.start();
+  }
+
+  private pause() {
     if (this.timeout >= 0) {
       clearTimeout(this.timeout);
       this.timeout = -1;
     }
-    this.lastChecked = Date.now();
+  }
 
+  private start() {
+    this.pause();
     if (isLoggedIn()) {
       this.timeout = self.setTimeout(() => this.checkSession(), DEFAULT_SESSION_TIMEOUT + 100);
     }
