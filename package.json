@@ -56,7 +56,7 @@
     "iojs": ">= 3"
   },
   "dependencies": {
-    "phovea_core": "~2.0.0"
+    "phovea_core": "~2.1.0"
   },
   "name": "phovea_security_flask",
   "description": "",
