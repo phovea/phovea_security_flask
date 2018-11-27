@@ -47,7 +47,7 @@ Defines the following user:
 * Hashed password: `2c946ca1b8574d506ee5e7b3b22e350bc8c93b9df647d17e4429e727529c63a62d1fb274ca5a7499bd33c0844e437631728ee9fcba14b41204f21ec8cda523f7`
 * Roles: `avenger, scientist`
 
-**NOTE:** User credentials defined as environment variables override the same users defined in the `config.json`. This behaviour can be used to have development users inside the `config.json`, and provide the users for production via environment variables when deployed.
+**NOTE:** User credentials defined as environment variables override all users defined in the `config.json`. This behaviour can be used to define development users inside the `config.json`, and provide users for production via environment variables when deployed.
 
 
 ***
