@@ -29,9 +29,25 @@ npm run build
 Add new users
 -------
 
+### Config File
 New users are added to `phovea_security_flask/config.json`.
 
-The python script `encryptor.py` hashes a given password and prints salt and hashed password.  
+The python script `encryptor.py` hashes a given password and prints password, salt, and hashed password.
+
+### Environment Variables
+Alternatively, you can provide users via environment variables:
+The `UserStore` class in `phovea_security_flask/dummy_store.py` reads all environment variables starting with `PHOVEA_USER_` and uses the remainder of the enviroment variable key as username. The environment variable's key has to contain: `SALT;HASHED_PW;ROLE1` (multiple roles can be added by seperating them with a semicolon), e.g.:
+```
+export PHOVEA_USER_bruce.banner="08c52b567cb947c98be6de6e9ad3919f;2c946ca1b8574d506ee5e7b3b22e350bc8c93b9df647d17e4429e727529c63a62d1fb274ca5a7499bd33c0844e437631728ee9fcba14b41204f21ec8cda523f7;avenger;scientist
+```
+
+Defines the following user:
+* Username: `bruce.banner`
+* Salt: `08c52b567cb947c98be6de6e9ad3919f`
+* Hashed password: `2c946ca1b8574d506ee5e7b3b22e350bc8c93b9df647d17e4429e727529c63a62d1fb274ca5a7499bd33c0844e437631728ee9fcba14b41204f21ec8cda523f7`
+* Roles: `avenger, scientist`
+
+**NOTE:** User credentials defined as environment variables override all users defined in the `config.json`. This behaviour can be used to define development users inside the `config.json`, and provide users for production via environment variables when deployed.
 
 
 ***
