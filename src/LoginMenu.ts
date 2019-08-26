@@ -90,7 +90,6 @@ export default class LoginMenu extends EventHandler {
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> <span>Unknown</span></a>
             <ul class="dropdown-menu">
-                <li role="separator" class="divider"></li>
                 <li><a href="#" id="logout_link">Logout</a></li>
             </ul>
         </li>`;
