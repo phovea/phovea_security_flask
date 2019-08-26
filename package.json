@@ -42,12 +42,12 @@
     "release:patch": "npm version patch && npm publish && git push --follow-tags",
     "predist:web": "npm run build:web && npm run docs:web",
     "predist": "echo hybrid",
-    "dist:web": "mkdirp dist && cd build && tar cvzf ../dist/phovea_security_flask.tar.gz *",
-    "dist:python": "python setup.py bdist_egg",
-    "dist": "npm run dist:web && npm run dist:python",
+    "dist:python": "python setup.py sdist bdist_wheel",
+    "dist": "npm run dist:python",
     "prebuild:python": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:python",
     "prebuild:web": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:web",
-    "predist:python": "npm run build:python && npm run docs:python"
+    "predist:python": "npm run build:python && npm run docs:python",
+    "publish:python": "twine upload --repository-url https://upload.pypi.org/legacy/ dist/*"
   },
   "main": "build/phovea_security_flask.js",
   "engines": {
@@ -56,12 +56,12 @@
     "iojs": ">= 3"
   },
   "dependencies": {
-    "phovea_core": "2.0.0"
+    "phovea_core": "github:phovea/phovea_core#develop"
   },
   "name": "phovea_security_flask",
   "description": "",
   "homepage": "https://phovea.caleydo.org",
-  "version": "2.0.0",
+  "version": "2.1.3-SNAPSHOT",
   "author": {
     "name": "The Caleydo Team",
     "email": "contact@caleydo.org",

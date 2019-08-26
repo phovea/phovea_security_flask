@@ -39,6 +39,7 @@ class UserStore(object):
 
 class NamespaceLoginManager(security.SecurityManager):
   def __init__(self):
+    print('init flask login')
     super(NamespaceLoginManager, self).__init__()
     self._manager = flask_login.LoginManager()
     self._manager.user_loader(self._load_user)
@@ -62,9 +63,11 @@ class NamespaceLoginManager(security.SecurityManager):
   #  return User.query.get(int(id))
 
   def init_app(self, app):
+    print('init flask app')
     self._manager.init_app(app)
 
   def add_login_routes(self, app):
+    print('add flask routes')
     from phovea_server import ns
 
     @app.route('/login', methods=['GET', 'POST'])
@@ -109,13 +112,16 @@ class NamespaceLoginManager(security.SecurityManager):
       return '"not_yet_logged_in"'
 
   def login_required(self, f):
+    print('login_required flask')
     return flask_login.login_required(f)
 
   @property
   def current_user(self):
+    print('current user flask')
     return flask_login.current_user
 
   def logout(self):
+    print('logout flask')
     u = self.current_user
     _log.debug('user logout: ' + (u.name if hasattr(u, 'name') else str(u)))
     for store in self._user_stores:
@@ -123,6 +129,7 @@ class NamespaceLoginManager(security.SecurityManager):
     flask_login.logout_user()
 
   def login(self, username, extra_fields=None):
+    print('login flask')
     if extra_fields is None:
       extra_fields = {}
 
@@ -144,7 +151,7 @@ class NamespaceLoginManager(security.SecurityManager):
 
   def _load_user_from_request(self, request):
     # first, try to login using the api_key url arg
-    api_key = request.args.get('api_key')
+    api_key = request.headers.get('api_key')
     if api_key:
       user = self._load_user_from_key(api_key)
       if user:
