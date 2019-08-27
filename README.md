@@ -26,6 +26,13 @@ Building
 npm run build
 ```
 
+Default users
+-------
+| Username | Password |
+|----------|----------|
+| admin    | `admin`  |
+| sam      | `sam`    |
+
 Add new users
 -------
 

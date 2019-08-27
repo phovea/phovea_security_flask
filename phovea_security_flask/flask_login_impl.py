@@ -144,7 +144,7 @@ class NamespaceLoginManager(security.SecurityManager):
 
   def _load_user_from_request(self, request):
     # first, try to login using the api_key url arg
-    api_key = request.args.get('api_key')
+    api_key = request.headers.get('api_key')
     if api_key:
       user = self._load_user_from_key(api_key)
       if user:
