@@ -56,12 +56,12 @@
     "iojs": ">= 3"
   },
   "dependencies": {
-    "phovea_core": "~2.1.2"
+    "phovea_core": "^2.1.2"
   },
   "name": "phovea_security_flask",
   "description": "",
   "homepage": "https://phovea.caleydo.org",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "author": {
     "name": "The Caleydo Team",
     "email": "contact@caleydo.org",
