@@ -7,6 +7,7 @@
     "email": "contact@caleydo.org",
     "url": "https://caleydo.org"
   },
+  "homepage": "https://phovea.caleydo.org",
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/phovea/phovea_security_flask/issues"
