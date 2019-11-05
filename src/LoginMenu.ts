@@ -5,13 +5,12 @@
 
 import {mixin} from 'phovea_core/src';
 import {EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM, ICustomizedLoginFormPluginDesc, ICustomizedLoginFormPlugin} from './extensions';
-import {bindLoginForm, form as defaultLoginForm, logout, loggedInAs} from './login';
-import {EventHandler, on, off} from 'phovea_core/src/event';
+import {bindLoginForm, form as defaultLoginForm, logout} from './login';
+import {EventHandler} from 'phovea_core/src/event';
 import {list as listPlugin} from 'phovea_core/src/plugin';
-import {GLOBAL_EVENT_AJAX_POST_SEND, send} from 'phovea_core/src/ajax';
 import startWatching from './watcher';
 
-const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
+// const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
 import './style.scss';
 
 

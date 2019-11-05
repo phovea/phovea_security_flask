@@ -1,6 +1,6 @@
 
-import {on, off} from 'phovea_core/src/event';
-import {GLOBAL_EVENT_AJAX_POST_SEND, send} from 'phovea_core/src/ajax';
+import {on} from 'phovea_core/src/event';
+import {GLOBAL_EVENT_AJAX_POST_SEND} from 'phovea_core/src/ajax';
 import {offline} from 'phovea_core/src/index';
 import {GLOBAL_EVENT_USER_LOGGED_IN, GLOBAL_EVENT_USER_LOGGED_OUT, isLoggedIn} from 'phovea_core/src/security';
 import {loggedInAs, logout as globalLogout} from './login';
