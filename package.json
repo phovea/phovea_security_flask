@@ -68,9 +68,8 @@
   },
   "main": "build/phovea_security_flask.js",
   "engines": {
-    "npm": ">= 3",
-    "node": ">= 6",
-    "iojs": ">= 3"
+    "npm": ">= 6.12",
+    "node": ">= 12.13"
   },
   "dependencies": {
     "phovea_core": "github:phovea/phovea_core#typescript_3.6"

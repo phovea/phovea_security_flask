@@ -1,4 +1,4 @@
-image: caleydo/phovea_circleci_python:v1.0
+image: circleci/node:12-browsers
 
 variables:
   GIT_DEPTH: "1"
