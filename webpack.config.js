@@ -165,7 +165,7 @@ function generateWebpack(options) {
     ],
     externals: [],
     module: {
-      loaders: webpackloaders.slice()
+      rules: webpackloaders.slice()
     },
     devServer: {
       proxy: {
@@ -237,11 +237,11 @@ function generateWebpack(options) {
 
     // ignore extra modules
     (options.ignore || []).forEach(function (d) {
-      base.module.loaders.push({test: new RegExp(d), loader: 'null-loader'}); // use null loader
+      base.module.rules.push({test: new RegExp(d), loader: 'null-loader'}); // use null loader
     });
     // ingore phovea module registry calls
     (options.modules || []).forEach(function (m) {
-      base.module.loaders.push({
+      base.module.rules.push({
         test: new RegExp('.*[\\\\/]' + m + '[\\\\/]phovea_registry.js'),
         loader: 'null-loader'
       }); // use null loader
@@ -254,11 +254,11 @@ function generateWebpack(options) {
       allChunks: true // there seems to be a bug in dynamically loaded chunk styles are not loaded, workaround: extract all styles from all chunks
     });
     base.plugins.push(p);
-    base.module.loaders[0] = {
+    base.module.rules[0] = {
       test: /\.scss$/,
       loader: p.extract(['css-loader', 'sass-loader'])
     };
-    base.module.loaders[1] = {
+    base.module.rules[1] = {
       test: /\.css$/,
       loader: p.extract(['css-loader'])
     };
