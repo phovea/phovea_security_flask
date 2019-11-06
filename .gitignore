@@ -10,15 +10,24 @@ __pycache__/
 *.so
 *~
 *.log
+*.map
 *.pot
 *.pyc
 *.swp
 *.lock
+/.vscode
+/tmp
+/.bower.json
+.cache-loader
+/build2
 # due to using tox and pytest
 .tox
 .cache
 node_modules/
 /src/**/*.js
+src/**/*.css
+src/**/*.d.ts
 /tests/**/*.js
+/tscommand*.tmp.txt
 *.map
 *.css
