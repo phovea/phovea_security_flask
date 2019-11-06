@@ -59,7 +59,7 @@ export function loggedInAs() {
  * @param {HTMLFormElement} form
  * @param {(error: any, user: IUser) => any} callback
  */
-export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any, onSubmit?: ()=>void) {
+export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser | null) => any, onSubmit?: ()=>void) {
   security.reset();
   if (!offline) {
     loggedInAs().then((user) => {
