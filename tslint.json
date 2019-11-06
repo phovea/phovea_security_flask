@@ -1,4 +1,8 @@
 {
+  "extends": [
+    "tslint-eslint-rules",
+    "tslint-consistent-codestyle"
+  ],
   "rules": {
     "arrow-parens": true,
     "ban": [
@@ -21,20 +25,14 @@
     "curly": true,
     "eofline": true,
     "forin": true,
-    "indent": [
-      true,
-      2
-    ],
+    "indent": [true, "spaces", 2],
     "interface-name": true,
     "jsdoc-format": true,
     "label-position": true,
     "max-line-length": false,
-    "member-ordering": [
-      false,
-      "public-before-private",
-      "static-before-instance",
-      "variables-before-functions"
-    ],
+    "member-ordering": [false, {
+      "order": "statics-first"
+    }],
     "new-parens": true,
     "no-arg": true,
     "no-bitwise": true,
@@ -58,7 +56,6 @@
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
-    "no-use-before-declare": true,
     "no-unsafe-finally": true,
     "no-var-requires": true,
     "no-var-keyword": true,
@@ -80,7 +77,8 @@
     "radix": true,
     "semicolon": [
       true,
-      "always"
+      "always",
+      "ignore-bound-class-methods"
     ],
     "triple-equals": [
       true,
@@ -96,18 +94,10 @@
     ],
     "typedef-whitespace": [
       true,
-      [
-        "callSignature",
-        "noSpace"
-      ],
-      [
-        "catchClause",
-        "noSpace"
-      ],
-      [
-        "indexSignature",
-        "space"
-      ]
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace"
+      }
     ],
     "use-isnan": true,
     "variable-name": [
@@ -123,6 +113,44 @@
       "check-operator",
       "check-separator",
       "check-type"
-    ]
+    ],
+
+
+    "trailing-comma": true,
+    "no-conditional-assignment": true,
+    "no-constant-condition": true,
+    "no-control-regex": true,
+    "no-duplicate-case": true,
+    "no-empty-character-class": true,
+    "no-ex-assign": true,
+    "no-extra-boolean-cast": true,
+    "no-extra-semi": true,
+    "no-inner-declarations": true,
+    "no-invalid-regexp": true,
+    "ter-no-irregular-whitespace": true,
+    "no-regex-spaces": true,
+    "ter-no-sparse-arrays": true,
+    "no-unexpected-multiline": true,
+    "block-spacing": [
+      true,
+      "always"
+    ],
+    "array-bracket-spacing": [
+      true,
+      "never"
+    ],
+    "ter-arrow-parens": true,
+    "ter-arrow-spacing": true,
+    "prefer-template": true,
+
+    "early-exit": true,
+    "no-as-type-assertion": true,
+    "no-collapsible-if": true,
+    "no-else-after-return": true,
+    "no-static-this": true,
+    "no-unnecessary-else": true,
+    "no-var-before-return": true,
+    "prefer-const-enum": true,
+    "prefer-while": true
   }
 }
