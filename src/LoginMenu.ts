@@ -120,7 +120,7 @@ export default class LoginMenu extends EventHandler {
       if (userMenu) {
         userMenu.style.display = 'none';
       }
-      (<HTMLElement>this.node.querySelector('#login_menu')).style.display = null;
+      (<HTMLElement>this.node.querySelector('#login_menu')).style.display = '';
       console.assert(doc != null);
       Array.from(doc!.querySelectorAll('.login_required')).forEach((n: Element) => {
         n.classList.add('disabled');
@@ -195,7 +195,7 @@ export default class LoginMenu extends EventHandler {
       console.assert(doc != null);
       const userMenu = <HTMLElement>doc!.querySelector('#user_menu');
       if (userMenu) {
-        userMenu.style.display = null;
+        userMenu.style.display = '';
         const userName = <HTMLElement>userMenu.querySelector('a:first-of-type span');
         if (user && userName) {
           userName.textContent = user.name;
