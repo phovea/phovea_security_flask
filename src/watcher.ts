@@ -82,4 +82,5 @@ export default function startWatching(logout: () => any = globalLogout) {
     return;
   }
   const _ = new SessionWatcher(logout);
+  console.log(_);
 }
