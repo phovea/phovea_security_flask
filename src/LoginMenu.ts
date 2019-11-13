@@ -122,7 +122,7 @@ export default class LoginMenu extends EventHandler {
       }
       (<HTMLElement>this.node.querySelector('#login_menu')).style.display = null;
       console.assert(doc != null);
-      Array.from(doc!.querySelectorAll('.login_required')).forEach((n: HTMLElement) => {
+      Array.from(doc!.querySelectorAll('.login_required')).forEach((n: Element) => {
         n.classList.add('disabled');
       });
       this.adapter.ready();
@@ -197,7 +197,7 @@ export default class LoginMenu extends EventHandler {
       if (userMenu) {
         userMenu.style.display = null;
         const userName = <HTMLElement>userMenu.querySelector('a:first-of-type span');
-        if (userName) {
+        if (user && userName) {
           userName.textContent = user.name;
         }
       }
@@ -206,9 +206,9 @@ export default class LoginMenu extends EventHandler {
       (<HTMLElement>doc!.querySelector('#login_menu')).style.display = 'none';
       // remove all .login_required magic flags
       console.assert(doc != null);
-      Array.from(doc!.querySelectorAll('.login_required.disabled')).forEach((n: HTMLElement) => {
+      Array.from(doc!.querySelectorAll('.login_required.disabled')).forEach((n: Element) => {
         n.classList.remove('disabled');
-        n.setAttribute('disabled', null);
+        n.setAttribute('disabled', null!);
       });
 
       this.adapter.hideDialog('#loginDialog');
