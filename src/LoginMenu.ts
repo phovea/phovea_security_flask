@@ -8,7 +8,6 @@ import {EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM, ICustomizedLoginFormPluginDesc, I
 import {bindLoginForm, form as defaultLoginForm, logout, loggedInAs} from './login';
 import {EventHandler, on, off} from 'phovea_core/src/event';
 import {list as listPlugin} from 'phovea_core/src/plugin';
-import {GLOBAL_EVENT_AJAX_POST_SEND, send} from 'phovea_core/src/ajax';
 import startWatching from './watcher';
 
 const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
@@ -58,7 +57,6 @@ export default class LoginMenu extends EventHandler {
   static readonly EVENT_LOGGED_OUT = 'loggedOut';
 
   readonly node: HTMLUListElement;
-
   private readonly options: ILoginMenuOptions = {
     loginForm: undefined,
     document,
@@ -72,7 +70,6 @@ export default class LoginMenu extends EventHandler {
     mixin(this.options, options);
     this.customizer = listPlugin(EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM);
     this.node = this.init();
-
     if (this.options.watch) {
       startWatching(() => this.logout());
     }
@@ -147,9 +144,10 @@ export default class LoginMenu extends EventHandler {
       if (t) {
         loginForm = t.template;
       } else {
-        loginForm = defaultLoginForm;
+        loginForm = defaultLoginForm();
       }
     }
+    console.log(loginForm)
     body.insertAdjacentHTML('beforeend', `
       <!--login dialog-->
       <div class="modal fade" id="loginDialog" tabindex="-1" role="dialog" aria-labelledby="loginDialog" data-keyboard="false" data-backdrop="static">

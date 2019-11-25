@@ -1,5 +1,9 @@
 {
   "security_flask": {
+    "username": "Username",
+    "rememberMe": "Remember me",
+    "password": "Password",
+    "submit": "Submit",
     "unknown": "Unknown",
     "logoutButton": "Logout",
     "closeButton": "Close",
