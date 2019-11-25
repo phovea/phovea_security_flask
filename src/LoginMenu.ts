@@ -159,7 +159,7 @@ export default class LoginMenu extends EventHandler {
               <h4 class="modal-title">${i18next.t('phovea:security_flask.title')}</h4>
             </div>
             <div class="modal-body">
-              <div class="alert alert-warning" role="alert">.alert</div>
+              <div class="alert alert-warning" role="alert">${i18next.t('phovea:security_flask.alert')}</div>
               ${loginForm}
             </div>
           </div>
