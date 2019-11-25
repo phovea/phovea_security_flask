@@ -1,0 +1,9 @@
+{
+  "security_flask": {
+    "unknown": "Unknown",
+    "logoutButton": "Logout",
+    "closeButton": "Close",
+    "title": "Please login",
+    "alert": "The server seems to be offline! Login not possible. Try again later."
+  }
+}
