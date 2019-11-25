@@ -73,7 +73,7 @@
     "iojs": ">= 3"
   },
   "dependencies": {
-    "phovea_core": "github:phovea/phovea_core#develop"
+    "phovea_core": "github:phovea/phovea_core#thinkh/154_i18n-support"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.41",
