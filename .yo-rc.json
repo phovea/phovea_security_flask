@@ -31,6 +31,12 @@
     "entries": "./index.js",
     "ignores": [],
     "today": "Thu, 03 Nov 2016 14:59:48 GMT",
-    "libraryExternals": []
+    "libraryExternals": [],
+    "promptValues": {
+      "authorName": "The Caleydo Team",
+      "authorEmail": "contact@caleydo.org",
+      "authorUrl": "https://caleydo.org",
+      "githubAccount": "phovea"
+    }
   }
 }
