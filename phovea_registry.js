@@ -5,6 +5,7 @@
  **************************************************************************** */
 
 import {register} from 'phovea_core/src/plugin';
+import reg from './src/phovea'
 
 /**
  * build a registry by registering all phovea modules
@@ -12,4 +13,4 @@ import {register} from 'phovea_core/src/plugin';
 //other modules
 import 'phovea_core/phovea_registry.js';
 //self
-register('phovea_security_flask',require('./phovea.js'));
+register('phovea_security_flask', reg);
