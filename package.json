@@ -50,7 +50,7 @@
     "build:dev": "webpack --mode=development",
     "build:python": "rm -rf build/source && find . -name '*.pyc' -delete && node buildPython.js && cp -r ./phovea_security_flask build/source/",
     "build:web": "webpack --env prod",
-    "build": "webpack --mode=production --verbose --display=verbose",
+    "build": "webpack --mode=production",
     "start": "webpack-dev-server --mode=development --inline",
     "start:hot": "webpack-dev-server --mode=development --inline --hot",
     "watch": "webpack --mode=development --watch",
