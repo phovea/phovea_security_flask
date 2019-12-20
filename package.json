@@ -59,7 +59,7 @@
     "release:patch": "npm version patch && npm publish && git push --follow-tags",
     "predist:web": "npm run build:web && npm run docs:web",
     "predist": "echo hybrid",
-    "dist:python": "python setup.py bdist_egg",
+    "dist:python": "python setup.py sdist bdist_wheel",
     "dist": "npm run dist:web && npm run dist:python",
     "prebuild:python": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:python",
     "prebuild:web": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:web",
