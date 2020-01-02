@@ -1,12 +1,29 @@
 /**
  *
  */
-import * as formTemplate from 'html-loader!./_login_form.html';
 import {send} from 'phovea_core/src/ajax';
 import {offline} from 'phovea_core/src/index';
 import * as security from 'phovea_core/src/security';
+import i18n from 'phovea_core/src/i18n';
 
-export const form = String(formTemplate);
+export const form = () => (`<form class="form-signin" action="/login" method="post">
+  <div class="form-group">
+    <label class="control-label" for="login_username">${i18n.t('phovea:security_flask.username')}</label>
+    <input type="text" class="form-control" id="login_username" placeholder="${i18n.t('phovea:security_flask.username')}" required="required" autofocus="autofocus" autocomplete="username">
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="login_password"> ${i18n.t('phovea:security_flask.password')}</label>
+    <input type="password" class="form-control" id="login_password" placeholder="${i18n.t('phovea:security_flask.password')}" required="required" autocomplete="current-password">
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" id="login_remember"> ${i18n.t('phovea:security_flask.rememberMe')}
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default"> ${i18n.t('phovea:security_flask.submit')}</button>
+  </form>
+  `);
+
 
 /**
  * try to login the given user
@@ -17,7 +34,7 @@ export const form = String(formTemplate);
  */
 export function login(username: string, password: string, remember = false) {
   security.reset();
-  const r =send('/login', {username, password, remember}, 'post').then((user) => {
+  const r = send('/login', {username, password, remember}, 'post').then((user) => {
     security.login(user);
     return user;
   });
@@ -59,7 +76,7 @@ export function loggedInAs() {
  * @param {HTMLFormElement} form
  * @param {(error: any, user: IUser) => any} callback
  */
-export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any, onSubmit?: ()=>void) {
+export function bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any, onSubmit?: () => void) {
   security.reset();
   if (!offline) {
     loggedInAs().then((user) => {
