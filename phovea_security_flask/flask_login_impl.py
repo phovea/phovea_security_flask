@@ -14,10 +14,7 @@ class User(security.User, flask_login.UserMixin):
     pass
 
   def get_id(self):
-    try:
-      return str(self.id)  # python 2
-    except NameError:
-      return str(self.id)  # python 3
+    return str(self.id)
 
 
 class UserStore(object):
