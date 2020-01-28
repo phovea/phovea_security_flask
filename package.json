@@ -75,7 +75,7 @@
     "node": ">= 12.13"
   },
   "dependencies": {
-    "phovea_core": "github:phovea/phovea_core#develop"
+    "phovea_core": "github:phovea/phovea_core#stoiber/testing_with_jest"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
