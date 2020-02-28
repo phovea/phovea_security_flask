@@ -65,7 +65,7 @@
     "prebuild:web": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test:web",
     "predist:python": "npm run build:python && npm run docs:python",
     "publish:python": "twine upload --repository-url https://upload.pypi.org/legacy/ dist/*",
-    "dist:web": "mkdirp dist && cd build && tar cvzf ../dist/phovea_security_flask.tar.gz *"
+    "dist:web": "mkdir dist && cd build && tar cvzf ../dist/phovea_security_flask.tar.gz *"
   },
   "main": "build/phovea_security_flask.js",
   "engines": {
@@ -96,7 +96,6 @@
     "karma-junit-reporter": "2.0.0",
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "2.0.3",
-    "mkdirp": "0.5.1",
     "node-sass": "^4.12.0",
     "null-loader": "0.1.1",
     "raw-loader": "0.5.1",
