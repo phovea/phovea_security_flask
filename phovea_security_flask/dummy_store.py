@@ -5,7 +5,7 @@ __author__ = 'Samuel Gratzl'
 
 
 def hash_password(password, salt):
-  return hashlib.sha512(password + salt).hexdigest()
+  return hashlib.sha512((password + salt).encode('utf-8')).hexdigest()
 
 
 class User(flask_login_impl.User):

@@ -14,10 +14,7 @@ class User(security.User, flask_login.UserMixin):
     pass
 
   def get_id(self):
-    try:
-      return unicode(self.id)  # python 2
-    except NameError:
-      return str(self.id)  # python 3
+    return str(self.id)
 
 
 class UserStore(object):
@@ -49,7 +46,7 @@ class NamespaceLoginManager(security.SecurityManager):
     self._user_stores = [p.load().factory() for p in plugin.list('user_stores')]
     if len(self._user_stores) == 0:
       _log.info('using dummy store')
-      import dummy_store
+      from . import dummy_store
       self._user_stores.append(dummy_store.create())
 
   def _load_user(self, id):
@@ -144,7 +141,7 @@ class NamespaceLoginManager(security.SecurityManager):
 
   def _load_user_from_request(self, request):
     # first, try to login using the api_key url arg
-    api_key = request.headers.get('api_key')
+    api_key = request.headers.get('apiKey')
     if api_key:
       user = self._load_user_from_key(api_key)
       if user:
