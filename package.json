@@ -73,7 +73,7 @@
     "node": ">= 12.13"
   },
   "dependencies": {
-    "phovea_core": "github:phovea/phovea_core#thinkh/provenance_retrieval+typescript_3.8"
+    "phovea_core": "github:phovea/phovea_core#stoiber/provenance_retrieval+typescript_3.8+update_dependencies_38"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.47",
