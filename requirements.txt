@@ -1,2 +1,2 @@
-flask-login==0.4.1
--e git+https://github.com/phovea/phovea_server.git@develop#egg=phovea_server
+flask-login==0.5.0
+-e git+https://github.com/phovea/phovea_server.git@update_dep_req#egg=phovea_server
