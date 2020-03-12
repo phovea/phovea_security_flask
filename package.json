@@ -73,7 +73,7 @@
     "node": ">= 12.13"
   },
   "dependencies": {
-    "phovea_core": "github:phovea/phovea_core#update_dep_req"
+    "phovea_core": "github:phovea/phovea_core#develop"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.47",
