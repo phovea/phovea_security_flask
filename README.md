@@ -67,7 +67,7 @@ This repository is part of **[Phovea](http://phovea.caleydo.org/)**, a platform 
 [phovea-url]: https://phovea.caleydo.org
 [npm-image]: https://badge.fury.io/js/phovea_security_flask.svg
 [npm-url]: https://npmjs.org/package/phovea_security_flask
-[travis-image]: https://travis-ci.org/phovea/phovea_security_flask.svg?branch=master
-[travis-url]: https://travis-ci.org/phovea/phovea_security_flask
+[circleci-image]: https://circleci.com/gh/phovea/phovea_security_flask.svg?style=shield
+[circleci-url]: https://circleci.com/gh/phovea/phovea_security_flask
 [daviddm-image]: https://david-dm.org/phovea/phovea_security_flask/status.svg
 [daviddm-url]: https://david-dm.org/phovea/phovea_security_flask
