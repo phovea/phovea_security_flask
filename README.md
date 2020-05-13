@@ -1,5 +1,6 @@
-phovea_security_flask [![Phovea][phovea-image]][phovea-url] [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+phovea_security_flask
 =====================
+[![Phovea][phovea-image-client]][phovea-url] [![Phovea][phovea-image-server]][phovea-url] [![NPM version][npm-image]][npm-url] [![Build Status][circleci-image]][circleci-url]
 
 Security manager implementation based on [Flask-Login](https://flask-login.readthedocs.io/en/latest/). Additionally, a login module is provided that can be used at client-side.
 
@@ -63,11 +64,10 @@ Defines the following user:
 This repository is part of **[Phovea](http://phovea.caleydo.org/)**, a platform for developing web-based visualization applications. For tutorials, API docs, and more information about the build and deployment process, see the [documentation page](http://phovea.caleydo.org).
 
 
-[phovea-image]: https://img.shields.io/badge/Phovea-Client%20Plugin-F47D20.svg
+[phovea-image-client]: https://img.shields.io/badge/Phovea-Client%20Plugin-F47D20.svg
+[phovea-image-server]: https://img.shields.io/badge/Phovea-Server%20Plugin-10ACDF.svg
 [phovea-url]: https://phovea.caleydo.org
 [npm-image]: https://badge.fury.io/js/phovea_security_flask.svg
 [npm-url]: https://npmjs.org/package/phovea_security_flask
 [circleci-image]: https://circleci.com/gh/phovea/phovea_security_flask.svg?style=shield
 [circleci-url]: https://circleci.com/gh/phovea/phovea_security_flask
-[daviddm-image]: https://david-dm.org/phovea/phovea_security_flask/status.svg
-[daviddm-url]: https://david-dm.org/phovea/phovea_security_flask
