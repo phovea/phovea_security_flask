@@ -5,7 +5,7 @@
 
 import {mixin} from 'phovea_core/src';
 import {EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM, ICustomizedLoginFormPluginDesc, ICustomizedLoginFormPlugin} from './extensions';
-import {bindLoginForm, form as defaultLoginForm, logout} from './login';
+import {bindLoginForm, defaultLoginForm, logout} from './login';
 import {EventHandler} from 'phovea_core/src/event';
 import {list as listPlugin} from 'phovea_core/src/plugin';
 import startWatching from './watcher';

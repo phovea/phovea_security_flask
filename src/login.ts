@@ -6,7 +6,7 @@ import {offline} from 'phovea_core/src/index';
 import * as security from 'phovea_core/src/security';
 import i18n from 'phovea_core/src/i18n';
 
-export const form = () => (`<form class="form-signin" action="/login" method="post">
+export const defaultLoginForm = () => (`<form class="form-signin" action="/login" method="post">
   <div class="form-group">
     <label class="control-label" for="login_username">${i18n.t('phovea:security_flask.username')}</label>
     <input type="text" class="form-control" id="login_username" placeholder="${i18n.t('phovea:security_flask.username')}" required="required" autofocus="autofocus" autocomplete="username">
