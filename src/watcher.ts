@@ -72,14 +72,14 @@ export class SessionWatcher {
       this.timeout = self.setTimeout(() => this.checkSession(), DEFAULT_SESSION_TIMEOUT + 100);
     }
   }
-}
 
-/**
- * watches for session auto log out scenarios
- */
-export function startWatching(logout: () => any = globalLogout) {
-  if (offline) {
-    return;
+  /**
+   * watches for session auto log out scenarios
+   */
+  static startWatching(logout: () => any = globalLogout) {
+    if (offline) {
+      return;
+    }
+    const _ = new SessionWatcher(logout);
   }
-  const _ = new SessionWatcher(logout);
 }

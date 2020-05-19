@@ -8,7 +8,7 @@ import {EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM, ICustomizedLoginFormPluginDesc, I
 import {bindLoginForm, defaultLoginForm, logout} from './login';
 import {EventHandler} from 'phovea_core/src/event';
 import {list as listPlugin} from 'phovea_core/src/plugin';
-import {startWatching} from './watcher';
+import {SessionWatcher} from './watcher';
 
 const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
 import './style.scss';
@@ -71,7 +71,7 @@ export class LoginMenu extends EventHandler {
     this.customizer = listPlugin(EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM);
     this.node = this.init();
     if (this.options.watch) {
-      startWatching(() => this.logout());
+      SessionWatcher.startWatching(() => this.logout());
     }
   }
 
