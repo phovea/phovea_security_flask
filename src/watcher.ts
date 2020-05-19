@@ -77,7 +77,7 @@ export class SessionWatcher {
 /**
  * watches for session auto log out scenarios
  */
-export default function startWatching(logout: () => any = globalLogout) {
+export function startWatching(logout: () => any = globalLogout) {
   if (offline) {
     return;
   }
