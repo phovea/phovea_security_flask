@@ -5,7 +5,7 @@
 
 import {mixin} from 'phovea_core/src';
 import {EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM, ICustomizedLoginFormPluginDesc, ICustomizedLoginFormPlugin} from './extensions';
-import {bindLoginForm, defaultLoginForm, logout} from './login';
+import {LoginUtils} from './LoginUtils';
 import {EventHandler} from 'phovea_core/src/event';
 import {list as listPlugin} from 'phovea_core/src/plugin';
 import {SessionWatcher} from './watcher';
@@ -109,7 +109,7 @@ export class LoginMenu extends EventHandler {
   private logout() {
     const doc = this.options.document;
     this.adapter.wait();
-    logout().then(() => {
+    LoginUtils.logout().then(() => {
       this.fire(LoginMenu.EVENT_LOGGED_OUT);
       const userMenu = <HTMLElement>doc.querySelector('#user_menu');
       if (userMenu) {
@@ -144,7 +144,7 @@ export class LoginMenu extends EventHandler {
       if (t) {
         loginForm = t.template;
       } else {
-        loginForm = defaultLoginForm();
+        loginForm = LoginUtils.defaultLoginForm();
       }
     }
     body.insertAdjacentHTML('beforeend', `
@@ -167,7 +167,7 @@ export class LoginMenu extends EventHandler {
 
     const dialog = <HTMLDivElement>body.querySelector('#loginDialog');
     const form = <HTMLFormElement>dialog.querySelector('form');
-    bindLoginForm(form, (error, user) => {
+    LoginUtils.bindLoginForm(form, (error, user) => {
       const success = !error && user;
       if (!success) {
         this.adapter.ready();

@@ -3,7 +3,7 @@ import {on, off} from 'phovea_core/src/event';
 import {GLOBAL_EVENT_AJAX_POST_SEND} from 'phovea_core/src/ajax';
 import {offline} from 'phovea_core/src/index';
 import {GLOBAL_EVENT_USER_LOGGED_IN, GLOBAL_EVENT_USER_LOGGED_OUT, isLoggedIn} from 'phovea_core/src/security';
-import {loggedInAs, logout as globalLogout} from './login';
+import {LoginUtils} from './LoginUtils';
 
 const DEFAULT_SESSION_TIMEOUT = 10 * 60 * 1000; // 10 min
 
@@ -11,7 +11,7 @@ export class SessionWatcher {
   private timeout = -1;
   private lastChecked = 0;
 
-  constructor(private readonly logout: () => any = globalLogout) {
+  constructor(private readonly logout: () => any = LoginUtils.logout) {
     on(GLOBAL_EVENT_USER_LOGGED_IN, () => this.reset());
     if (isLoggedIn()) {
       this.reset();
@@ -35,7 +35,7 @@ export class SessionWatcher {
       return;
     }
 
-    loggedInAs()
+    LoginUtils.loggedInAs()
       .then(() => this.reset())
       .catch(() => this.loggedOut());
   }
@@ -76,7 +76,7 @@ export class SessionWatcher {
   /**
    * watches for session auto log out scenarios
    */
-  static startWatching(logout: () => any = globalLogout) {
+  static startWatching(logout: () => any = LoginUtils.logout) {
     if (offline) {
       return;
     }
