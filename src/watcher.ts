@@ -1,8 +1,5 @@
 
-import {on, off} from 'phovea_core/src/event';
-import {GLOBAL_EVENT_AJAX_POST_SEND} from 'phovea_core/src/ajax';
-import {offline} from 'phovea_core/src/index';
-import {GLOBAL_EVENT_USER_LOGGED_IN, GLOBAL_EVENT_USER_LOGGED_OUT, isLoggedIn} from 'phovea_core/src/security';
+import {EventHandler, AppContext, Ajax, UserSession} from 'phovea_core';
 import {LoginUtils} from './LoginUtils';
 
 const DEFAULT_SESSION_TIMEOUT = 10 * 60 * 1000; // 10 min
@@ -12,12 +9,12 @@ export class SessionWatcher {
   private lastChecked = 0;
 
   constructor(private readonly logout: () => any = LoginUtils.logout) {
-    on(GLOBAL_EVENT_USER_LOGGED_IN, () => this.reset());
-    if (isLoggedIn()) {
+    EventHandler.getInstance().on(UserSession.GLOBAL_EVENT_USER_LOGGED_IN, () => this.reset());
+    if (UserSession.getInstance().isLoggedIn()) {
       this.reset();
     }
-    on(GLOBAL_EVENT_USER_LOGGED_OUT, () => this.stop());
-    on(GLOBAL_EVENT_AJAX_POST_SEND, () => this.reset());
+    EventHandler.getInstance().on(UserSession.GLOBAL_EVENT_USER_LOGGED_OUT, () => this.stop());
+    EventHandler.getInstance().on(Ajax.GLOBAL_EVENT_AJAX_POST_SEND, () => this.reset());
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
         this.start();
@@ -41,7 +38,7 @@ export class SessionWatcher {
   }
 
   private loggedOut() {
-    if (!isLoggedIn()) {
+    if (!UserSession.getInstance().isLoggedIn()) {
       return;
     }
 
@@ -68,7 +65,7 @@ export class SessionWatcher {
 
   private start() {
     this.pause();
-    if (isLoggedIn()) {
+    if (UserSession.getInstance().isLoggedIn()) {
       this.timeout = self.setTimeout(() => this.checkSession(), DEFAULT_SESSION_TIMEOUT + 100);
     }
   }
@@ -77,7 +74,7 @@ export class SessionWatcher {
    * watches for session auto log out scenarios
    */
   static startWatching(logout: () => any = LoginUtils.logout) {
-    if (offline) {
+    if (AppContext.getInstance().offline) {
       return;
     }
     const _ = new SessionWatcher(logout);

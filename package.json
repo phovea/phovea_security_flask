@@ -12,16 +12,17 @@
   "bugs": {
     "url": "https://github.com/phovea/phovea_security_flask/issues"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/phovea/phovea_security_flask.git"
   },
   "files": [
-    "src",
-    "index.js",
     "phovea.js",
     "phovea_registry.js",
-    "build",
+    "dist",
+    "src",
     "phovea_security_flask",
     "__init__.py",
     "__main__.py",
@@ -31,17 +32,19 @@
     "redhat_packages.txt"
   ],
   "scripts": {
-    "clean": "rimraf build dist && npm run clean:compile",
+    "clean": "rimraf dist lib && npm run clean:compile",
     "clean:compile": "rimraf src/**/*.map src/**/*.js src/**/*.d.ts tests/**/*.js tests/**/*.map tests/**/*.d.ts demo/**/*.js demo/**/*.map demo/**/*.d.ts",
     "check": "flake8 --exclude=.git,venv,deploy,docs,__pycache__,node_modules",
+    "compile": "tsc",
+    "copy-assets": "if [ -d src/assets ]; then cp -rv src/assets/ dist/assets/; fi",
+    "copy-styles": "cd src && find . -name '*.scss' -exec cp --parents '{}' ./../dist/ ';'",
     "pretest:web": "npm run compile",
     "pretest:python": "npm run check",
-    "posttest:web": "npm run lint",
+    "posttest:web": "npm run clean && npm run compile",
     "pretest": "echo hybrid",
     "test:web": "test ! $(find tests -name \"*.ts\") || jest",
     "test:python": "test ! $(find tests -name \"*.py\") || python setup.py test",
     "test": "npm run test:web && npm run test:python",
-    "compile": "tsc",
     "lint": "tslint -c tslint.json -p . 'src/**/*.ts?(x)' 'tests/**/*.ts?(x)'",
     "docs:web": "typedoc --options typedoc.json src/**.ts",
     "docs:python": "sphinx-apidoc -o docs -f ./phovea_security_flask && sphinx-build ./docs build/docs",
@@ -49,13 +52,9 @@
     "prebuild": "echo hybrid",
     "posttest": "echo hybrid",
     "test:watch": "jest --watch",
-    "build:dev": "webpack",
+    "build:web": "npm run clean && npm run compile && npm run copy-assets && npm run copy-styles",
     "build:python": "rm -rf build/source && find . -name '*.pyc' -delete && node buildPython.js && cp -r ./phovea_security_flask build/source/",
-    "build:web": "webpack --env prod",
     "build": "npm run build:web && npm run build:python",
-    "start": "webpack-dev-server --inline",
-    "start:hot": "webpack-dev-server --inline --hot",
-    "watch": "webpack --watch",
     "release:major": "npm version major && npm publish && git push --follow-tags",
     "release:minor": "npm version minor && npm publish && git push --follow-tags",
     "release:patch": "npm version patch && npm publish && git push --follow-tags",
@@ -69,45 +68,33 @@
     "publish:python": "twine upload --repository-url https://upload.pypi.org/legacy/ dist/*",
     "dist:web": "mkdir dist && cd build && tar cvzf ../dist/phovea_security_flask.tar.gz *"
   },
-  "main": "build/phovea_security_flask.js",
   "engines": {
     "npm": ">= 6.12",
     "node": ">= 12.13"
   },
   "dependencies": {
-    "phovea_core": "github:phovea/phovea_core#develop"
+    "madge": "^3.9.0",
+    "phovea_core": "github:phovea/phovea_core#asteiner/refactoring"
   },
   "devDependencies": {
     "@types/jest": "25.1.4",
-    "awesome-typescript-loader": "3.1.2",
-    "css-loader": "0.28.0",
-    "extract-text-webpack-plugin": "2.1.0",
+    "cache-loader": "1.2.0",
     "file-loader": "0.11.1",
     "html-loader": "0.4.5",
+    "identity-obj-proxy": "^3.0.0",
+    "ifdef-loader": "2.0.0",
     "imports-loader": "0.7.1",
     "jest": "25.1.0",
     "jest-raw-loader": "1.0.1",
-    "json-loader": "0.5.4",
     "node-sass": "^4.13.1",
     "null-loader": "0.1.1",
     "raw-loader": "0.5.1",
     "rimraf": "^3.0.0",
-    "sass-loader": "6.0.7",
-    "style-loader": "0.16.1",
-    "thread-loader": "1.1.2",
-    "ts-loader": "4.0.1",
-    "tslib": "~1.11.0",
     "ts-jest": "25.2.1",
+    "tslib": "~1.11.0",
     "tslint": "5.9.1",
     "typedoc": "~0.16.10",
     "typescript": "~3.8.2",
-    "url-loader": "0.5.8",
-    "webpack": "2.3.3",
-    "webpack-dev-server": "2.4.2",
-    "extract-loader": "0.1.0",
-    "cache-loader": "1.2.0",
-    "identity-obj-proxy": "^3.0.0",
-    "ifdef-loader": "2.0.0",
-    "fork-ts-checker-webpack-plugin": "0.4.4"
+    "url-loader": "0.5.8"
   }
 }

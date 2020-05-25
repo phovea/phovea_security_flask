@@ -1,28 +1,26 @@
 /**
  *
  */
-import {send} from 'phovea_core/src/ajax';
-import {offline} from 'phovea_core/src/index';
-import * as security from 'phovea_core/src/security';
-import i18n from 'phovea_core/src/i18n';
+import {Ajax, AppContext, I18nextManager, UserSession, IUser} from 'phovea_core';
+
 
 export class LoginUtils {
 
   static defaultLoginForm = () => (`<form class="form-signin" action="/login" method="post">
     <div class="form-group">
-      <label class="control-label" for="login_username">${i18n.t('phovea:security_flask.username')}</label>
-      <input type="text" class="form-control" id="login_username" placeholder="${i18n.t('phovea:security_flask.username')}" required="required" autofocus="autofocus" autocomplete="username">
+      <label class="control-label" for="login_username">${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}</label>
+      <input type="text" class="form-control" id="login_username" placeholder="${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}" required="required" autofocus="autofocus" autocomplete="username">
     </div>
     <div class="form-group">
-      <label class="control-label" for="login_password"> ${i18n.t('phovea:security_flask.password')}</label>
-      <input type="password" class="form-control" id="login_password" placeholder="${i18n.t('phovea:security_flask.password')}" required="required" autocomplete="current-password">
+      <label class="control-label" for="login_password"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.password')}</label>
+      <input type="password" class="form-control" id="login_password" placeholder="${I18nextManager.getInstance().i18n.t('phovea:security_flask.password')}" required="required" autocomplete="current-password">
     </div>
     <div class="checkbox">
       <label>
-        <input type="checkbox" id="login_remember"> ${i18n.t('phovea:security_flask.rememberMe')}
+        <input type="checkbox" id="login_remember"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.rememberMe')}
       </label>
     </div>
-    <button type="submit" class="btn btn-default"> ${i18n.t('phovea:security_flask.submit')}</button>
+    <button type="submit" class="btn btn-default"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.submit')}</button>
     </form>
     `)
 
@@ -35,14 +33,14 @@ export class LoginUtils {
    * @return {Promise<never | any>} the result in case of a reject it was an invalid request
    */
   static login(username: string, password: string, remember = false) {
-    security.reset();
-    const r = send('/login', {username, password, remember}, 'post').then((user) => {
-      security.login(user);
+    UserSession.getInstance().reset();
+    const r = Ajax.send('/login', {username, password, remember}, 'post').then((user) => {
+      UserSession.getInstance().login(user);
       return user;
     });
     //separate for multiple catch clauses
     r.catch(() => {
-      security.logout();
+      UserSession.getInstance().logout();
     });
     return r;
   }
@@ -52,19 +50,19 @@ export class LoginUtils {
    * @return {Promise<any>} when done also from the server side
    */
   static logout(): Promise<any> {
-    if (!offline) {
-      return send('/logout', {}, 'post').then(() => {
-        security.logout();
+    if (!AppContext.getInstance().offline) {
+      return Ajax.send('/logout', {}, 'post').then(() => {
+        UserSession.getInstance().logout();
       }).catch(() => {
-        security.logout();
+        UserSession.getInstance().logout();
       });
     }
-    security.logout();
+    UserSession.getInstance().logout();
     return Promise.resolve(true);
   }
 
   static loggedInAs() {
-    return send('/loggedinas', {}, 'POST')
+    return Ajax.send('/loggedinas', {}, 'POST')
       .then((user) => {
         if (user !== 'not_yet_logged_in' && user.name) {
           return user;
@@ -78,11 +76,11 @@ export class LoginUtils {
    * @param {HTMLFormElement} form
    * @param {(error: any, user: IUser) => any} callback
    */
-  static bindLoginForm(form: HTMLFormElement, callback: (error: any, user: security.IUser) => any, onSubmit?: () => void) {
-    security.reset();
-    if (!offline) {
+  static bindLoginForm(form: HTMLFormElement, callback: (error: any, user: IUser) => any, onSubmit?: () => void) {
+    UserSession.getInstance().reset();
+    if (!AppContext.getInstance().offline) {
       LoginUtils.loggedInAs().then((user) => {
-        security.login(user);
+        UserSession.getInstance().login(user);
         callback(null, user);
       }).catch(() => {
         //ignore not yet logged in

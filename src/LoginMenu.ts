@@ -3,16 +3,14 @@
  */
 
 
-import {mixin} from 'phovea_core/src';
+import {BaseUtils, EventHandler, PluginRegistry} from 'phovea_core';
 import {EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM, ICustomizedLoginFormPluginDesc, ICustomizedLoginFormPlugin} from './extensions';
 import {LoginUtils} from './LoginUtils';
-import {EventHandler} from 'phovea_core/src/event';
-import {list as listPlugin} from 'phovea_core/src/plugin';
 import {SessionWatcher} from './watcher';
 
 const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
 import './style.scss';
-import i18n from 'phovea_core/src/i18n';
+import {I18nextManager} from 'phovea_core';
 
 
 export interface ILoginMenuOptions {
@@ -67,8 +65,8 @@ export class LoginMenu extends EventHandler {
 
   constructor(private readonly adapter: ILoginMenuAdapter, options: ILoginMenuOptions = {}) {
     super();
-    mixin(this.options, options);
-    this.customizer = listPlugin(EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM);
+    BaseUtils.mixin(this.options, options);
+    this.customizer = PluginRegistry.getInstance().listPlugins(EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM);
     this.node = this.init();
     if (this.options.watch) {
       SessionWatcher.startWatching(() => this.logout());
@@ -86,9 +84,9 @@ export class LoginMenu extends EventHandler {
         </a></li>
         <li style="display: none" class="dropdown" id="user_menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> <span>${i18n.t('phovea:security_flask.unknown')}</span></a>
+               aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> <span>${I18nextManager.getInstance().i18n.t('phovea:security_flask.unknown')}</span></a>
             <ul class="dropdown-menu">
-                <li><a href="#" id="logout_link">${i18n.t('phovea:security_flask.logoutButton')}</a></li>
+                <li><a href="#" id="logout_link">${I18nextManager.getInstance().i18n.t('phovea:security_flask.logoutButton')}</a></li>
             </ul>
         </li>`;
 
@@ -153,12 +151,12 @@ export class LoginMenu extends EventHandler {
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="${i18n.t('phovea:security_flask.closeButton')}"><span
+              <button type="button" class="close" data-dismiss="modal" aria-label="${I18nextManager.getInstance().i18n.t('phovea:security_flask.closeButton')}"><span
                 aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">${i18n.t('phovea:security_flask.title')}</h4>
+              <h4 class="modal-title">${I18nextManager.getInstance().i18n.t('phovea:security_flask.title')}</h4>
             </div>
             <div class="modal-body">
-              <div class="alert alert-warning" role="alert">${i18n.t('phovea:security_flask.alert')}</div>
+              <div class="alert alert-warning" role="alert">${I18nextManager.getInstance().i18n.t('phovea:security_flask.alert')}</div>
               ${loginForm}
             </div>
           </div>
