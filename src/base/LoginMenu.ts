@@ -8,8 +8,8 @@ import {EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM, ICustomizedLoginFormPluginDesc, I
 import {LoginUtils} from './LoginUtils';
 import {SessionWatcher} from './watcher';
 
-const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
-import './style.scss';
+// const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
+import '../scss/style.scss';
 import {I18nextManager} from 'phovea_core';
 
 

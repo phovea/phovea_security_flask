@@ -2,7 +2,7 @@
  * Created by Samuel Gratzl on 28.02.2017.
  */
 import { EventHandler } from 'phovea_core';
-import './style.scss';
+import '../scss/style.scss';
 export interface ILoginMenuOptions {
     /**
      * formular used for the login dialog
