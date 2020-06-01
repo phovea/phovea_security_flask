@@ -6,7 +6,7 @@ import { EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM } from './extensions';
 import { LoginUtils } from './LoginUtils';
 import { SessionWatcher } from './watcher';
 // const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
-import '../scss/style.scss';
+import '../scss/main.scss';
 import { I18nextManager } from 'phovea_core';
 /**
  * utility login menu that can be added to the Appheader for instance
