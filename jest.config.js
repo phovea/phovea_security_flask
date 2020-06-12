@@ -29,29 +29,19 @@ module.exports = {
     "json",
     "node"
   ],
-  moduleDirectories: [
-    "node_modules",
+  modulePaths: [
     "src"
   ],
-  roots: ['<rootDir>/src', '<rootDir>/tests'],
-  // "[/\\\\]node_modules/(?!MODULE_NAME_HERE).+\\.js$
-  transformIgnorePatterns: [`[/\\\\]node_modules/${pluginsToTransform}`],
+  transformIgnorePatterns: [`../node_modules/${pluginsToTransform}`, `node_modules/${pluginsToTransform}`],
   globals: {
     "__VERSION__": "TEST_VERSION",
     "__APP_CONTEXT__": "TEST_CONTEXT",
     // has to be set to true, otherwise i18n import fails
-    'ts-jest': {
-      "tsConfig": {
-        "esModuleInterop": true
-      }
+    "tsConfig": {
+      "esModuleInterop": true
     }
   },
   moduleNameMapper: {
-    "^.+\\.(css|less|scss|sass|png|jpg|gif)$": "identity-obj-proxy",
-    "imports-loader?.*": "imports-loader",
-    "raw-loader?.*": "raw-loader",
-    "file-loader?.*": "file-loader",
-    "script-loader?.*": "script-loader"
+    "^.+\\.(css|less|scss|sass|png|jpg|gif)$": "identity-obj-proxy"
   }
 }
-console.log(module.exports)
