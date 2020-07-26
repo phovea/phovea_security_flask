@@ -4,7 +4,7 @@ import { EP_PHOVEA_CORE_LOCALE } from 'phovea_core';
 export default function (registry) {
     //registry.push('extension-type', 'extension-id', function() { return import('./dist/extension_impl'); }, {});
     registry.push(EP_PHOVEA_CORE_LOCALE, 'phoveaSecurityFlaskLocaleEN', function () {
-        return import('./assets/locales/en/phovea.json').then(PluginRegistry.getInstance().asResource);
+        return import('./locales/en/phovea.json').then(PluginRegistry.getInstance().asResource);
     }, {
         ns: 'phovea',
     });
