@@ -160,6 +160,15 @@ class NamespaceLoginManager(security.SecurityManager):
       if user:
         return user
 
+    # next, try to login using the actual request
+    for store in self._user_stores:
+      # first check if the actual "load_from_request" method is implemented and then call it
+      load_from_req = getattr(store, "load_from_request", None)
+      if callable(load_from_req):
+        user = load_from_req(request)
+        if user:
+          return user
+
     # finally, return None if both methods did not login the user
     return None
 
