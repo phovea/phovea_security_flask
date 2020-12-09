@@ -74,7 +74,7 @@
     "node": ">= 12.13"
   },
   "dependencies": {
-    "phovea_core": "github:phovea/phovea_core#develop"
+    "phovea_core": "github:phovea/phovea_core#vstoiber/update_dependencies"
   },
   "devDependencies": {
     "@types/jest": "~26.0.5",
