@@ -9,7 +9,6 @@ import {LoginUtils} from './LoginUtils';
 import {SessionWatcher} from './watcher';
 
 // const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
-import '../scss/main.scss';
 import {I18nextManager} from 'phovea_core';
 
 
