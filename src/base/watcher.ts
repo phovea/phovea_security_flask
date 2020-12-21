@@ -1,9 +1,6 @@
 
-import {on, off} from 'phovea_core/src/event';
-import {GLOBAL_EVENT_AJAX_POST_SEND, send} from 'phovea_core/src/ajax';
-import {offline} from 'phovea_core/src/index';
-import {GLOBAL_EVENT_USER_LOGGED_IN, GLOBAL_EVENT_USER_LOGGED_OUT, isLoggedIn} from 'phovea_core/src/security';
-import {loggedInAs, logout as globalLogout} from './login';
+import {GlobalEventHandler, AppContext, Ajax, UserSession} from 'phovea_core';
+import {LoginUtils} from './LoginUtils';
 
 const DEFAULT_SESSION_TIMEOUT = 10 * 60 * 1000; // 10 min
 
@@ -11,13 +8,13 @@ export class SessionWatcher {
   private timeout = -1;
   private lastChecked = 0;
 
-  constructor(private readonly logout: () => any = globalLogout) {
-    on(GLOBAL_EVENT_USER_LOGGED_IN, () => this.reset());
-    if (isLoggedIn()) {
+  constructor(private readonly logout: () => any = LoginUtils.logout) {
+    GlobalEventHandler.getInstance().on(UserSession.GLOBAL_EVENT_USER_LOGGED_IN, () => this.reset());
+    if (UserSession.getInstance().isLoggedIn()) {
       this.reset();
     }
-    on(GLOBAL_EVENT_USER_LOGGED_OUT, () => this.stop());
-    on(GLOBAL_EVENT_AJAX_POST_SEND, () => this.reset());
+    GlobalEventHandler.getInstance().on(UserSession.GLOBAL_EVENT_USER_LOGGED_OUT, () => this.stop());
+    GlobalEventHandler.getInstance().on(Ajax.GLOBAL_EVENT_AJAX_POST_SEND, () => this.reset());
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
         this.start();
@@ -35,13 +32,13 @@ export class SessionWatcher {
       return;
     }
 
-    loggedInAs()
+    LoginUtils.loggedInAs()
       .then(() => this.reset())
       .catch(() => this.loggedOut());
   }
 
   private loggedOut() {
-    if (!isLoggedIn()) {
+    if (!UserSession.getInstance().isLoggedIn()) {
       return;
     }
 
@@ -68,18 +65,18 @@ export class SessionWatcher {
 
   private start() {
     this.pause();
-    if (isLoggedIn()) {
+    if (UserSession.getInstance().isLoggedIn()) {
       this.timeout = self.setTimeout(() => this.checkSession(), DEFAULT_SESSION_TIMEOUT + 100);
     }
   }
-}
 
-/**
- * watches for session auto log out scenarios
- */
-export default function startWatching(logout: () => any = globalLogout) {
-  if (offline) {
-    return;
+  /**
+   * watches for session auto log out scenarios
+   */
+  static startWatching(logout: () => any = LoginUtils.logout) {
+    if (AppContext.getInstance().offline) {
+      return;
+    }
+    const _ = new SessionWatcher(logout);
   }
-  const _ = new SessionWatcher(logout);
 }

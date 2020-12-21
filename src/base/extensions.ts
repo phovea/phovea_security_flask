@@ -1,4 +1,4 @@
-import {IPlugin, IPluginDesc} from 'phovea_core/src/plugin';
+import {IPlugin, IPluginDesc} from 'phovea_core';
 
 export const EXTENSION_POINT_CUSTOMIZED_LOGIN_FORM = 'securityCustomizedLoginForm';
 
