@@ -29,19 +29,20 @@ export class LoginMenu extends EventHandler {
     init() {
         const doc = this.options.document;
         const ul = doc.createElement('ul');
-        ul.classList.add('nav', 'navbar-nav', 'navbar-right');
+        ul.classList.add('navbar-nav', 'navbar-right');
         ul.innerHTML = `
-      <li id="login_menu">
-        <a data-toggle="modal" data-target="#loginDialog" href="#">
-        <i class="fas fa-user fa-fw" aria-hidden="true"></i>
-        </a></li>
-        <li style="display: none" class="dropdown" id="user_menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false"><i class="fas fa-user" aria-hidden="true"></i> <span>${I18nextManager.getInstance().i18n.t('phovea:security_flask.unknown')}</span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#" id="logout_link">${I18nextManager.getInstance().i18n.t('phovea:security_flask.logoutButton')}</a></li>
-            </ul>
-        </li>`;
+      <li class="nav-item" id="login_menu">
+        <a class="nav-link" data-toggle="modal" data-target="#loginDialog" href="#">
+          <i class="fas fa-user fa-fw" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li style="display: none" class="nav-item" id="user_menu">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" id="userMenuDropdown"
+              aria-expanded="false"><i class="fas fa-user" aria-hidden="true"></i> <span>${I18nextManager.getInstance().i18n.t('phovea:security_flask.unknown')}</span></a>
+          <ul class="dropdown-menu aria-labelledby="userMenuDropdown">
+              <li><a href="#" id="logout_link">${I18nextManager.getInstance().i18n.t('phovea:security_flask.logoutButton')}</a></li>
+          </ul>
+      </li>`;
         ul.querySelector('#logout_link').addEventListener('click', (evt) => {
             evt.preventDefault();
             evt.stopPropagation();
