@@ -74,7 +74,7 @@
     "node": ">= 12.13"
   },
   "dependencies": {
-    "phovea_core": "github:phovea/phovea_core#thinkh/provenance_retrieval"
+    "phovea_core": "github:phovea/phovea_core#vstoiber/update_dependencies_provenance_retrieval"
   },
   "devDependencies": {
     "@types/jest": "~26.0.5",
