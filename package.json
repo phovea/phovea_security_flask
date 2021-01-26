@@ -74,7 +74,7 @@
     "node": ">= 12.13"
   },
   "dependencies": {
-    "phovea_core": "^release-6.0.0"
+    "phovea_core": "github:phovea/phovea_core#release-6.0.0"
   },
   "devDependencies": {
     "@types/jest": "~26.0.20",
