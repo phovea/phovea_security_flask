@@ -43,7 +43,7 @@ class NamespaceLoginManager(security.SecurityManager):
     self._manager.login_view = None
 
     import phovea_server.plugin as plugin
-    self._user_stores = [p.load().factory() for p in plugin.list('user_stores')]
+    self._user_stores = list(filter(None, [p.load().factory() for p in plugin.list('user_stores')]))
     if len(self._user_stores) == 0:
       _log.info('using dummy store')
       from . import dummy_store
@@ -160,7 +160,16 @@ class NamespaceLoginManager(security.SecurityManager):
       if user:
         return user
 
-    # finally, return None if both methods did not login the user
+    # next, try to login using the actual request
+    for store in self._user_stores:
+      # first check if the actual "load_from_request" method is implemented and then call it
+      load_from_req = getattr(store, "load_from_request", None)
+      if callable(load_from_req):
+        user = load_from_req(request)
+        if user:
+          return user
+
+    # finally, return None if all methods did not login the user
     return None
 
 

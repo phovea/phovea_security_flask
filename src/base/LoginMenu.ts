@@ -9,7 +9,6 @@ import {LoginUtils} from './LoginUtils';
 import {SessionWatcher} from './watcher';
 
 // const DEFAULT_SESSION_TIMEOUT = 60 * 1000; // 10 min
-import '../scss/main.scss';
 import {I18nextManager} from 'phovea_core';
 
 
@@ -80,11 +79,11 @@ export class LoginMenu extends EventHandler {
     ul.innerHTML = `
       <li id="login_menu">
         <a data-toggle="modal" data-target="#loginDialog" href="#">
-        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+        <i class="fas fa-user fa-fw" aria-hidden="true"></i>
         </a></li>
         <li style="display: none" class="dropdown" id="user_menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> <span>${I18nextManager.getInstance().i18n.t('phovea:security_flask.unknown')}</span></a>
+               aria-expanded="false"><i class="fas fa-user" aria-hidden="true"></i> <span>${I18nextManager.getInstance().i18n.t('phovea:security_flask.unknown')}</span></a>
             <ul class="dropdown-menu">
                 <li><a href="#" id="logout_link">${I18nextManager.getInstance().i18n.t('phovea:security_flask.logoutButton')}</a></li>
             </ul>
