@@ -151,9 +151,9 @@ export class LoginMenu extends EventHandler {
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
+            <h5 class="modal-title">${I18nextManager.getInstance().i18n.t('phovea:security_flask.title')}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="${I18nextManager.getInstance().i18n.t('phovea:security_flask.closeButton')}"><span
                 aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">${I18nextManager.getInstance().i18n.t('phovea:security_flask.title')}</h4>
             </div>
             <div class="modal-body">
               <div class="alert alert-warning" role="alert">${I18nextManager.getInstance().i18n.t('phovea:security_flask.alert')}</div>
