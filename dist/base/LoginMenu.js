@@ -36,12 +36,12 @@ export class LoginMenu extends EventHandler {
           <i class="fas fa-user fa-fw" aria-hidden="true"></i>
         </a>
       </li>
-      <li style="display: none" class="nav-item" id="user_menu">
+      <li style="display: none" class="nav-item dropdown" id="user_menu">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" id="userMenuDropdown"
               aria-expanded="false"><i class="fas fa-user" aria-hidden="true"></i> <span>${I18nextManager.getInstance().i18n.t('phovea:security_flask.unknown')}</span></a>
-          <ul class="dropdown-menu aria-labelledby="userMenuDropdown">
-              <li><a href="#" id="logout_link">${I18nextManager.getInstance().i18n.t('phovea:security_flask.logoutButton')}</a></li>
-          </ul>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuDropdown">
+              <a class="dropdown-item" href="#" id="logout_link">${I18nextManager.getInstance().i18n.t('phovea:security_flask.logoutButton')}</a>
+          </div>
       </li>`;
         ul.querySelector('#logout_link').addEventListener('click', (evt) => {
             evt.preventDefault();
