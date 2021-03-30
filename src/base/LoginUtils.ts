@@ -8,11 +8,11 @@ export class LoginUtils {
 
   static defaultLoginForm = () => (`<form class="form-signin" action="/login" method="post">
     <div class="form-group">
-      <label class="control-label" for="login_username">${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}</label>
+      <label class="col-form-label" for="login_username">${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}</label>
       <input type="text" class="form-control" id="login_username" placeholder="${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}" required="required" autofocus="autofocus" autocomplete="username">
     </div>
     <div class="form-group">
-      <label class="control-label" for="login_password"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.password')}</label>
+      <label class="col-form-label" for="login_password"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.password')}</label>
       <input type="password" class="form-control" id="login_password" placeholder="${I18nextManager.getInstance().i18n.t('phovea:security_flask.password')}" required="required" autocomplete="current-password">
     </div>
     <div class="checkbox">
@@ -20,7 +20,7 @@ export class LoginUtils {
         <input type="checkbox" id="login_remember"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.rememberMe')}
       </label>
     </div>
-    <button type="submit" class="btn btn-default"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.submit')}</button>
+    <button type="submit" class="btn btn-secondary"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.submit')}</button>
     </form>
     `)
 
