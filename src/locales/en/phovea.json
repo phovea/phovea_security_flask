@@ -8,6 +8,7 @@
     "logoutButton": "Logout",
     "closeButton": "Close",
     "title": "Please login",
-    "alert": "The server seems to be offline! Login not possible. Try again later."
+    "alertOffline": "The server seems to be offline! Login not possible. Try again later.",
+    "alertWrongCredentials": "Username or password incorrect. Please check again."
   }
 }

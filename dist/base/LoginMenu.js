@@ -76,7 +76,7 @@ export class LoginMenu extends EventHandler {
     forceShowDialog() {
         const doc = this.options.document;
         const loginDialog = doc.querySelector('#loginDialog');
-        loginDialog.querySelector('.modal-header .close').classList.add('hidden'); // disable closing the dialog
+        loginDialog.querySelector('.modal-header .close').setAttribute('hidden', null); // disable closing the dialog
         this.adapter.showAndFocusOn('#loginDialog', '#login_username');
     }
     initLoginDialog(body) {
@@ -101,7 +101,8 @@ export class LoginMenu extends EventHandler {
                 aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-              <div class="alert alert-warning" role="alert">${I18nextManager.getInstance().i18n.t('phovea:security_flask.alert')}</div>
+              <div class="alert alert-warning" role="alert">${I18nextManager.getInstance().i18n.t('phovea:security_flask.alertOffline')}</div>
+              <div class="alert alert-danger" role="alert">${I18nextManager.getInstance().i18n.t('phovea:security_flask.alertWrongCredentials')}</div>
               ${loginForm}
             </div>
           </div>

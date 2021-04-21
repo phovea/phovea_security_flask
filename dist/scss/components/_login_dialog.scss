@@ -20,7 +20,11 @@
     display: none;
   }
 
-  &.has-warning .modal-body > div.alert {
+  &.has-warning .modal-body > div.alert-warning {
+    display: block;
+  }
+
+  &.has-error .modal-body > div.alert-danger {
     display: block;
   }
 }
