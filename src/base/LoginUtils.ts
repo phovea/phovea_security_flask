@@ -19,7 +19,7 @@ export class LoginUtils {
       <input type="checkbox" class="form-check-input" id="login_remember">
       <label class="form-check-label" for="login_remember">${I18nextManager.getInstance().i18n.t('phovea:security_flask.rememberMe')}</label>
     </div>
-    <button type="submit" class="btn btn-secondary"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.submit')}</button>
+    <button type="submit" class="btn btn-primary"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.submit')}</button>
     </form>
     `)
 
