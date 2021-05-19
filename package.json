@@ -74,7 +74,7 @@
     "node": ">= 12.13"
   },
   "dependencies": {
-    "phovea_core": "github:phovea/phovea_core#vstoiber/bootstrap_v4"
+    "phovea_core": "github:phovea/phovea_core#vstoiber/bootstrap_v5"
   },
   "devDependencies": {
     "@types/jest": "~26.0.20",
