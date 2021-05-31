@@ -130,7 +130,7 @@ export class LoginMenu extends EventHandler {
   forceShowDialog() {
     const doc = this.options.document;
     const loginDialog = <HTMLElement>doc.querySelector('#loginDialog');
-    (<HTMLElement>loginDialog.querySelector('.modal-header .close')).setAttribute('hidden', null); // disable closing the dialog
+    (<HTMLElement>loginDialog.querySelector('.modal-header .btn-close')).setAttribute('hidden', null); // disable closing the dialog
     this.adapter.showAndFocusOn('#loginDialog', '#login_username');
   }
 
@@ -152,8 +152,7 @@ export class LoginMenu extends EventHandler {
           <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title">${I18nextManager.getInstance().i18n.t('phovea:security_flask.title')}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="${I18nextManager.getInstance().i18n.t('phovea:security_flask.closeButton')}"><span
-                aria-hidden="true">&times;</span></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="${I18nextManager.getInstance().i18n.t('phovea:security_flask.closeButton')}"></button>
             </div>
             <div class="modal-body">
               <div class="alert alert-warning" role="alert">${I18nextManager.getInstance().i18n.t('phovea:security_flask.alertOffline')}</div>
