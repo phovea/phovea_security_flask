@@ -1,7 +1,7 @@
 {
   "name": "phovea_security_flask",
   "description": "",
-  "version": "8.0.0-alpha.0",
+  "version": "7.0.1-SNAPSHOT",
   "author": {
     "name": "The Caleydo Team",
     "email": "contact@caleydo.org",
@@ -74,7 +74,7 @@
     "node": ">= 12.13"
   },
   "dependencies": {
-    "phovea_core": "^6.0.0"
+    "phovea_core": "github:phovea/phovea_core#vstoiber/bootstrap_v4"
   },
   "devDependencies": {
     "@types/jest": "~26.0.20",
