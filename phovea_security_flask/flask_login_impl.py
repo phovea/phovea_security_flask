@@ -81,9 +81,9 @@ class NamespaceLoginManager(security.SecurityManager):
       <html>
       <body>
         <form name="login" action="/login" method="post" accept-charset="utf-8">
-          <div><label for="username">User name: </label><input type="text" name="username" placeholder="name" required="required"></div>
-          <div><label for="password">Password</label><input type="password" name="password" placeholder="password" required="required"></div>
-          <div><label for="remember"><input type="checkbox" name="remember" value="True" required="required"></label></div>
+          <div><label for="username" class="form-label">User name: </label><input type="text" name="username" placeholder="name" required="required"></div>
+          <div><label for="password" class="form-label">Password</label><input type="password" name="password" placeholder="password" required="required"></div>
+          <div><label for="remember" class="form-label"><input type="checkbox" name="remember" value="True" required="required"></label></div>
           <div><input type="reset" value="Reset"><input type="submit" value="Login"></div>
         </form>
       </body>
