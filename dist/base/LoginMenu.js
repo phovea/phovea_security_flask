@@ -29,19 +29,20 @@ export class LoginMenu extends EventHandler {
     init() {
         const doc = this.options.document;
         const ul = doc.createElement('ul');
-        ul.classList.add('nav', 'navbar-nav', 'navbar-right');
+        ul.classList.add('navbar-nav', 'navbar-right');
         ul.innerHTML = `
-      <li id="login_menu">
-        <a data-toggle="modal" data-target="#loginDialog" href="#">
-        <i class="fas fa-user fa-fw" aria-hidden="true"></i>
-        </a></li>
-        <li style="display: none" class="dropdown" id="user_menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false"><i class="fas fa-user" aria-hidden="true"></i> <span>${I18nextManager.getInstance().i18n.t('phovea:security_flask.unknown')}</span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#" id="logout_link">${I18nextManager.getInstance().i18n.t('phovea:security_flask.logoutButton')}</a></li>
-            </ul>
-        </li>`;
+      <li class="nav-item" id="login_menu">
+        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginDialog" href="#">
+          <i class="fas fa-user fa-fw" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li style="display: none" class="nav-item dropdown" id="user_menu">
+          <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" id="userMenuDropdown"
+              aria-expanded="false"><i class="fas fa-user" aria-hidden="true"></i> <span>${I18nextManager.getInstance().i18n.t('phovea:security_flask.unknown')}</span></a>
+          <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none" aria-labelledby="userMenuDropdown">
+              <a class="dropdown-item" href="#" id="logout_link">${I18nextManager.getInstance().i18n.t('phovea:security_flask.logoutButton')}</a>
+          </div>
+      </li>`;
         ul.querySelector('#logout_link').addEventListener('click', (evt) => {
             evt.preventDefault();
             evt.stopPropagation();
@@ -75,7 +76,7 @@ export class LoginMenu extends EventHandler {
     forceShowDialog() {
         const doc = this.options.document;
         const loginDialog = doc.querySelector('#loginDialog');
-        loginDialog.querySelector('.modal-header .close').classList.add('hidden'); // disable closing the dialog
+        loginDialog.querySelector('.modal-header .btn-close').setAttribute('hidden', null); // disable closing the dialog
         this.adapter.showAndFocusOn('#loginDialog', '#login_username');
     }
     initLoginDialog(body) {
@@ -91,16 +92,16 @@ export class LoginMenu extends EventHandler {
         }
         body.insertAdjacentHTML('beforeend', `
       <!--login dialog-->
-      <div class="modal fade" id="loginDialog" tabindex="-1" role="dialog" aria-labelledby="loginDialog" data-keyboard="false" data-backdrop="static">
+      <div class="modal fade" id="loginDialog" tabindex="-1" role="dialog" aria-labelledby="loginDialog" data-keyboard="false" data-bs-backdrop="static">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="${I18nextManager.getInstance().i18n.t('phovea:security_flask.closeButton')}"><span
-                aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">${I18nextManager.getInstance().i18n.t('phovea:security_flask.title')}</h4>
+            <h5 class="modal-title">${I18nextManager.getInstance().i18n.t('phovea:security_flask.title')}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="${I18nextManager.getInstance().i18n.t('phovea:security_flask.closeButton')}"></button>
             </div>
             <div class="modal-body">
-              <div class="alert alert-warning" role="alert">${I18nextManager.getInstance().i18n.t('phovea:security_flask.alert')}</div>
+              <div class="alert alert-warning" role="alert">${I18nextManager.getInstance().i18n.t('phovea:security_flask.alertOffline')}</div>
+              <div class="alert alert-danger" role="alert">${I18nextManager.getInstance().i18n.t('phovea:security_flask.alertWrongCredentials')}</div>
               ${loginForm}
             </div>
           </div>
