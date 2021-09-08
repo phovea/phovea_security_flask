@@ -85,20 +85,21 @@ export class LoginUtils {
     }
 }
 LoginUtils.defaultLoginForm = () => (`<form class="form-signin" action="/login" method="post">
-    <div class="form-group">
-      <label class="control-label" for="login_username">${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}</label>
+    <div class="mb-3">
+      <label class="form-label" for="login_username">${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}</label>
       <input type="text" class="form-control" id="login_username" placeholder="${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}" required="required" autofocus="autofocus" autocomplete="username">
     </div>
-    <div class="form-group">
-      <label class="control-label" for="login_password"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.password')}</label>
+    <div class="mb-3">
+      <label class="form-label" for="login_password"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.password')}</label>
       <input type="password" class="form-control" id="login_password" placeholder="${I18nextManager.getInstance().i18n.t('phovea:security_flask.password')}" required="required" autocomplete="current-password">
     </div>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" id="login_remember"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.rememberMe')}
-      </label>
+    <div class="mb-3">
+      <div class="checkbox form-check">
+        <input type="checkbox" class="form-check-input" id="login_remember">
+        <label class="form-label form-check-label" for="login_remember">${I18nextManager.getInstance().i18n.t('phovea:security_flask.rememberMe')}</label>
+      </div>
     </div>
-    <button type="submit" class="btn btn-default"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.submit')}</button>
+    <button type="submit" class="btn btn-primary"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.submit')}</button>
     </form>
     `);
 //# sourceMappingURL=LoginUtils.js.map

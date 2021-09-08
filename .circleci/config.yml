@@ -2,11 +2,11 @@ version: 2.1
 
 executors:
   python-executor:
-    working_directory: ~/phovea
+    working_directory: ~/phovea-python
     docker:
       - image: circleci/python:3.7-buster-node-browsers # for node version see Dockerfile on https://hub.docker.com/r/circleci/python
   node-executor:
-    working_directory: ~/phovea
+    working_directory: ~/phovea-web
     docker:
       - image: circleci/node:12.13-buster-browsers
 
@@ -51,6 +51,10 @@ jobs:
           name: Show installed pip packages
           command: pip list || true
       - run:
+          name: Remove all from dist folder
+          command: |
+            rm -rf dist && mkdir dist          
+      - run:
           name: Build
           command: |
             . ~/venv/bin/activate
@@ -59,13 +63,14 @@ jobs:
           path: dist
           destination: dist-python
       - persist_to_workspace:
-          root: ~/phovea
-          paths: .
+          root: ~/.
+          paths: phovea-python
   python-publish:
     executor: python-executor
     steps:
       - attach_workspace:
-          at: ~/phovea
+          at: ~/.
+      - run: ls -a    
       - run:
           name: Install twine
           command: |
@@ -118,13 +123,14 @@ jobs:
           path: dist
           destination: dist-web
       - persist_to_workspace:
-          root: ~/phovea
-          paths: .
+          root: ~/.
+          paths: phovea-web
   web-publish:
     executor: node-executor
     steps:
       - attach_workspace:
-          at: ~/phovea
+          at: ~/.
+      - run: ls -a    
       - run:
           name: Authentication
           command:  |
