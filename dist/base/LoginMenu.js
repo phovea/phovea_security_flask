@@ -33,7 +33,7 @@ export class LoginMenu extends EventHandler {
         ul.classList.add('navbar-nav', 'navbar-right');
         ul.innerHTML = `
       <li class="nav-item" id="login_menu">
-        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginDialog" href="#">
+        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginDialog" href="#" data-testid="${testId}-login-menu-link">
           <i class="fas fa-user fa-fw" aria-hidden="true"></i>
         </a>
       </li>
