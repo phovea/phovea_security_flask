@@ -17,5 +17,6 @@
         "admin"
       ]
     }
-  ]
+  ],
+  "alwaysAppendDummyStore": false
 }
