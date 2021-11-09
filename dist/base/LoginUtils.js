@@ -87,7 +87,7 @@ export class LoginUtils {
 LoginUtils.defaultLoginForm = () => (`<form class="form-signin" action="/login" method="post">
     <div class="mb-3">
       <label class="form-label" for="login_username">${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}</label>
-      <input type="text" class="form-control" id="login_username" placeholder="${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}" required="required" autofocus="autofocus" autocomplete="username">
+      <input type="text" class="form-control" id="login_username" data-testid="phovea_security_flask-login-form_username_input" placeholder="${I18nextManager.getInstance().i18n.t('phovea:security_flask.username')}" required="required" autofocus="autofocus" autocomplete="username">
     </div>
     <div class="mb-3">
       <label class="form-label" for="login_password"> ${I18nextManager.getInstance().i18n.t('phovea:security_flask.password')}</label>
