@@ -1,8 +1,11 @@
-phovea_security_flask
+DEPRECATED: phovea_security_flask
 =====================
 [![Phovea][phovea-image-client]][phovea-url] [![Phovea][phovea-image-server]][phovea-url] [![NPM version][npm-image]][npm-url] [![Build Status][circleci-image]][circleci-url]
 
 Security manager implementation based on [Flask-Login](https://flask-login.readthedocs.io/en/latest/). Additionally, a login module is provided that can be used at client-side.
+
+### DEPRECATION Information
+Please note that this project has been archived and is no longer being maintained. There is an active development under https://github.com/datavisyn/tdp_core and we will also contribute our future changes to it.
 
 Installation
 ------------
